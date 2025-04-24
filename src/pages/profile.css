@@ -1,0 +1,37 @@
+.profilePic_section {
+  background-color: var(--dark-slate-blue);
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profilePic_section .profile_image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profilePic_section .profile_label {
+  width: 130px;
+  font-size: x-large;
+}
+
+.profile_section h1 {
+  font-size: 30px;
+  font-weight: 700;
+  font-family: unset;
+}
+.profile_section .details {
+  box-shadow: rgba(149, 157, 165, 0.2588235294) 0px 2px 12px;
+  background-color: var(--dark-slate-blue);
+  color: white;
+  font-weight: 300;
+}
+
+.password_box {
+  box-shadow: rgba(149, 157, 165, 0.2588235294) 0px 2px 12px;
+  background-color: var(--dark-slate-blue);
+  font-weight: 300;
+  color: white;
+}

@@ -1,0 +1,45 @@
+.setting_sec{
+    .cus_form_row{
+        border: 1px solid var(--border-color);
+        background-color: var(--dark-slate-blue);
+    }
+    .heading{
+        font-size: var(--fs-30);
+    font-weight: 600;
+    color: var(--orange);
+    }
+    label{
+        color: var(--slate-blue);
+        font-weight: 400;
+font-size: 14px;
+    }
+  .form__box{
+    .form-control{
+        border: 1px solid var(--border-color);
+        background-color: var(--dark-slate-blue);
+        color: var(--white);
+        font-weight: 400;
+        font-size: 15px;
+    }
+  }
+    ::placeholder{
+        color: var(--slate-blue);
+    }
+    .btn_submit{
+        background-color: rgb(235, 102, 15);
+        border: 1px solid rgb(235, 102, 15);
+        color: var(--white);
+        font-weight: 400;
+        font-size: 15px;
+        min-width: 120px;
+    }
+}
+
+@media all and (min-width: 320px) and (max-width: 767px) {
+
+.setting_sec .heading {
+    font-size: var(--fs-21);
+    font-weight: 600;
+    color: var(--orange);
+}
+}

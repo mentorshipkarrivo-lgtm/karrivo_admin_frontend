@@ -1,0 +1,198 @@
+.auth_sec {
+  background-image: url(/images/auth/login.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  height: 959px;
+  .auth_form {
+    background-color: var(--form-bg);
+    border: 1px solid var(--orange-border);
+
+    .form-select{
+      option{
+        background:#2a2a29;
+        // filter: invert(1);
+              }
+    }
+    
+    .login_heading {
+      h2 {
+        color: var(--orange);
+        font-weight: 700;
+      }
+    }
+    .auth_form_data {
+     
+      label {
+        color: var(--white);
+        font-size: var(--fs-15);
+        font-weight: 500;
+      }
+      .form-control {
+        background: linear-gradient(
+          178deg,
+          rgb(45, 45, 43) 54%,
+          rgb(22, 22, 24) 150%
+        );
+        color: var(--white);
+        font-size: var(--fs-15);
+        font-weight: 500;
+        padding: 13px 12px;
+        &::placeholder {
+          color: var(--white);
+        }
+      }
+      .otp_box{
+        background: linear-gradient(
+          178deg,
+          rgb(45, 45, 43) 54%,
+          rgb(22, 22, 24) 150%
+        );  
+      }
+      .mobile_group {
+        background: linear-gradient(
+          178deg,
+          rgb(45, 45, 43) 54%,
+          rgb(22, 22, 24) 150%
+        );
+        border-radius: 2px;
+        a {
+          color: var(--white);
+          font-size: var(--fs-15);
+          font-weight: 500;
+          &:hover {
+            background-color: transparent !important;
+          }
+        }
+      }
+      .mobile_menu {
+        background: linear-gradient(
+          178deg,
+          rgb(45, 45, 43) 54%,
+          rgb(22, 22, 24) 150%
+        );
+        li a {
+          color: var(--white);
+          font-size: var(--fs-15);
+          font-weight: 500;
+        }
+      }
+      .forgot_data {
+        a {
+          color: var(--white);
+          font-size: var(--fs-15);
+          font-weight: 500;
+        }
+      }
+      .submit_btn {
+        .btns {
+          padding: 13px 12px;
+          font-weight: 600;
+        }
+        .account_text {
+          color: var(--white);
+          font-size: var(--fs-15);
+          font-weight: 500;
+          a {
+            color: var(--orange);
+          }
+        }
+      }
+    }
+  }
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+
+@media all and (min-width: 992px) and (max-width: 1199px) {
+  .auth_sec {
+    .auth_form {
+      .login_heading {
+        h2 {
+          font-size: var(--fs-27);
+        }
+      }
+      .auth_form_data {
+        .form-control {
+          padding: 10px 12px;
+        }
+        .forgot_data {
+          a {
+            font-size: var(--fs-14);
+          }
+        }
+        .submit_btn {
+          .account_text {
+            font-size: var(--fs-14);
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .auth_sec {
+    .auth_form {
+      .login_heading {
+        h2 {
+          font-size: var(--fs-22);
+        }
+      }
+      .auth_form_data {
+        label {
+          font-size: var(--fs-14);
+        }
+        .form-control {
+          font-size: var(--fs-14);
+          padding: 10px 12px;
+        }
+        .forgot_data {
+          a {
+            font-size: var(--fs-13);
+          }
+        }
+        .submit_btn {
+          .account_text {
+            font-size: var(--fs-13);
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .auth_sec {
+    background-position: right;
+
+    .auth_form {
+      .login_heading {
+        h2 {
+          font-size: var(--fs-22);
+        }
+      }
+      .auth_form_data {
+        label {
+          font-size: var(--fs-14);
+        }
+        .form-control {
+          font-size: var(--fs-14);
+          padding: 10px 12px;
+        }
+        .forgot_data {
+          a {
+            font-size: var(--fs-13);
+          }
+        }
+        .submit_btn {
+          .account_text {
+            font-size: var(--fs-13);
+          }
+        }
+      }
+    }
+  }
+}

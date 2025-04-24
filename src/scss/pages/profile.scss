@@ -1,0 +1,515 @@
+.profile_section {
+  .personal_details {
+    box-shadow: rgba(149, 157, 165, 0.2588235294) 0px 2px 12px;
+    background-color: var(--white);
+    h1 {
+      font-size: var(--fs-30);
+      font-weight: 600;
+    }
+  }
+}
+.personal_details {
+  .copy_input {
+    border-radius: 1px;
+    border: 1px solid var(--orange);
+    .form-control {
+      font-weight: 300;
+      font-size: var(--fs-15);
+      background-color: transparent;
+      color: var(--white) !important;
+      border: 1px solid var(--orange);
+      border-radius: 1px;
+      &::placeholder {
+        color: var(--white);
+      }
+    }
+    .copy_button {
+      background-color: var(--orange);
+      color: var(--white);
+      margin: 3px 5px;
+      border-radius: 4px !important;
+      padding: 5px 15px;
+      font-size: var(--fs-14);
+      font-weight: 400;
+    }
+  }
+  label {
+    color: var(--white);
+    font-weight: 500;
+    font-size: var(--fs-15);
+  }
+}
+
+.my_total_team_data {
+  border: 1px solid var(--border-color);
+  background-color: var(--dark-slate-blue);
+  h1 {
+    font-size: var(--fs-30);
+    font-weight: 600;
+    color: var(--orange);
+  }
+  .user_btn {
+    border: 1px solid var(--border-color);
+    background-color: var(--dark-slate-blue);
+    border-radius: 50px;
+    font-size: var(--fs-13);
+    font-weight: 300;
+    color: var(--white);
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+  }
+  .edit_btn {
+    top: -19px;
+    right: -12px;
+    cursor: pointer;
+  }
+  // .delete_btn {
+  //   top: 69px;
+  //   left: 95px;
+  // }
+
+  h4 {
+    font-weight: 600;
+    color: var(--orange);
+  }
+  label {
+    color: var(--white);
+    font-size: var(--fs-15);
+  }
+  .form-select {
+    font-size: var(--fs-15);
+    color: var(--white);
+    background-color: var(--dark-slate-blue);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    &:focus {
+      border: 1px solid var(--border-color);
+      color: var(--white) !important;
+    }
+  }
+  .form-control {
+    font-size: var(--fs-15);
+    font-weight: 300;
+    color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 1px;
+    &::placeholder {
+      color: var(--white) !important;
+    }
+    &:focus {
+      border: 1px solid var(--border-color);
+      color: var(--white) !important;
+    }
+  }
+  .total_user_card {
+    .total_user_images {
+      background-color: var(--light-bg-orange);
+      border: 1px solid var(--orange-border);
+    }
+    .total_user_card_data {
+      h2 {
+        font-weight: 600;
+        font-size: var(--fs-30);
+        color: var(--orange);
+      }
+      h5 {
+        font-weight: 300;
+        color: var(--white);
+      }
+    }
+  }
+  .avtar_data {
+    h6 {
+      color: var(--orange);
+      font-size: var(--fs-20);
+    }
+    p {
+      color: var(--white);
+      font-size: var(--fs-15);
+      font-weight: 300;
+    }
+  }
+  .inner_data {
+    border-bottom: 1px solid var(--border-color);
+  }
+  .personal_details_images {
+    position: relative;
+  }
+  .personal_details_content {
+    h6 {
+      color: var(--orange);
+      font-size: var(--fs-20);
+    }
+    label {
+      font-size: var(--fs-15);
+      font-weight: 300;
+    }
+    .form-control {
+      font-size: var(--fs-15);
+      font-weight: 300;
+      color: var(--white);
+      border-radius: 1px;
+      background-color: transparent;
+      &::placeholder {
+        color: var(--white);
+      }
+    }
+  }
+  .input_group_data {
+    border: 1px solid var(--border-color);
+  }
+}
+.preview_data {
+  h1 {
+    border-bottom: 1px solid var(--orange);
+  }
+  ul li {
+    border-bottom: 1px solid var(--orange);
+  }
+}
+.showing_data {
+  p {
+    color: var(--text-grey);
+    font-size: var(--fs-15);
+  }
+  .form-select {
+    border: 1px solid var(--border-color);
+    background-color: var(--dark-slate-blue);
+    font-size: var(--fs-14);
+    color: var(--white);
+    background-size: 17px 23px;
+    border-radius: 3px;
+    --bs-form-select-bg-img: url(/images/svg/down-arrow.svg) !important;
+  }
+}
+.select_level_data {
+  .form-select {
+    background-color: var(--orange);
+    border-radius: 3px;
+    color: var(--white);
+    font-size: var(--fs-14);
+  }
+  .search_group {
+    background-color: transparent;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    span {
+      cursor: pointer;
+    }
+    .form-control {
+      font-size: var(--fs-15);
+      font-weight: 600;
+      color: var(--white);
+      border-radius: 1px;
+      background-color: transparent;
+      &::placeholder {
+        color: var(--white);
+      }
+    }
+  }
+}
+.table_data {
+  table {
+    --bs-table-bg: transparent;
+    thead {
+      tr {
+        background-color: var(--orange);
+        border-bottom: 1px solid var(--border-color);
+      }
+      th {
+        white-space: nowrap;
+        color: var(--white);
+        font-size: var(--fs-15);
+        font-weight: 600;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid var(--border-color);
+        &:last-child {
+          border-bottom: 1px solid transparent !important;
+        }
+      }
+      td {
+        padding: 16px 12px;
+        white-space: nowrap;
+        color: var(--white);
+        font-size: var(--fs-14);
+        font-weight: 500;
+      }
+      .unblock {
+        color: var(--dark-green) !important;
+      }
+      .block {
+        color: var(--red) !important;
+        font-weight: 700;
+      }
+    }
+  }
+}
+.showing_sub_data {
+  p {
+    font-size: var(--fs-15);
+    font-weight: 600;
+    color: var(--white);
+  }
+}
+
+.submit_btn {
+  .btns {
+    background-color: var(--orange);
+    color: var(--white);
+    font-size: var(--fs-15);
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 3px;
+    &:hover {
+      background-color: var(--orange);
+      color: var(--white);
+    }
+  }
+}
+.no_btns {
+  font-size: var(--fs-15);
+  font-weight: 500;
+  padding: 4px 66px !important;
+  background-color: #6c757d !important;
+  border-radius: 3px;
+  border: 1px solid #6c757d !important;
+}
+@media all and (min-width: 992px) and (max-width: 1199px) {
+  .profile_section {
+    .personal_details {
+      h1 {
+        font-size: var(--fs-25);
+      }
+    }
+
+    .my_total_team_data {
+      label {
+        font-size: var(--fs-14);
+      }
+      .form-control,
+      .form-select {
+        font-size: var(--fs-14);
+      }
+      .total_user_card {
+        .total_user_card_data {
+          h2 {
+            font-size: var(--fs-33);
+          }
+          h5 {
+            font-size: var(--fs-18);
+          }
+        }
+      }
+    }
+  }
+  .personal_details {
+    label {
+      font-size: var(--fs-14);
+    }
+    .form-control {
+      font-size: var(--fs-14);
+    }
+  }
+  // .two_factor_section {
+  //   .two_factor_data {
+  //     h1 {
+  //       font-size: var(--fs-25) !important;
+  //     }
+  //     .download_google_data {
+  //       h5 {
+  //         font-size: var(--fs-19) !important;
+  //       }
+  //       p {
+  //         font-size: var(--fs-15);
+  //       }
+  //     }
+  //   }
+  // }
+  // .legal_section {
+
+  .submit_btn {
+    .btns {
+      font-size: var(--fs-14);
+    }
+  }
+}
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .profile_section {
+    .personal_details {
+      h1 {
+        font-size: var(--fs-20);
+      }
+      label {
+        font-size: var(--fs-13);
+      }
+      .form-control {
+        font-size: var(--fs-13);
+      }
+    }
+
+    .my_total_team_data {
+      label {
+        font-size: var(--fs-14);
+      }
+      .avtar_data {
+        h6 {
+          font-size: var(--fs-18);
+        }
+        p {
+          font-size: var(--fs-13);
+        }
+      }
+      .form-control,
+      .form-select {
+        font-size: var(--fs-14);
+      }
+      .total_user_card {
+        .total_user_card_data {
+          h2 {
+            font-size: var(--fs-27);
+          }
+          h5 {
+            font-size: var(--fs-18);
+          }
+        }
+      }
+    }
+  }
+  .personal_details {
+    label {
+      font-size: var(--fs-13);
+    }
+    .form-control {
+      font-size: var(--fs-13);
+    }
+  }
+
+  .submit_btn {
+    .btns {
+      font-size: var(--fs-13);
+    }
+  }
+}
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .profile_section {
+    .personal_details {
+      h1 {
+        font-size: var(--fs-20);
+      }
+      label {
+        font-size: var(--fs-13);
+      }
+      .form-control {
+        font-size: var(--fs-13);
+      }
+    }
+
+    .my_total_team_data {
+      label {
+        font-size: var(--fs-14);
+      }
+      .form-control,
+      .form-select {
+        font-size: var(--fs-14);
+      }
+      .total_user_card {
+        .total_user_card_data {
+          h2 {
+            font-size: var(--fs-25);
+          }
+          h5 {
+            font-size: var(--fs-17);
+          }
+        }
+      }
+    }
+    .preview_data {
+      h1 {
+        border-bottom: 1px solid var(--orange);
+      }
+      ul li {
+        border-bottom: 1px solid var(--orange);
+        p {
+          font-size: var(--fs-14);
+        }
+      }
+    }
+    .my_total_team_data {
+      h1 {
+        font-size: var(--fs-20);
+      }
+      .avtar_data {
+        h6 {
+          font-size: var(--fs-18);
+        }
+        p {
+          font-size: var(--fs-12);
+        }
+      }
+    }
+    .showing_data {
+      p {
+        font-size: var(--fs-14);
+      }
+    }
+    .select_level_data {
+      .form-select {
+        font-size: var(--fs-13);
+      }
+      .search_group {
+        .form-control {
+          font-size: var(--fs-14);
+        }
+      }
+    }
+    .table_data {
+      table {
+        thead {
+          th {
+            font-size: var(--fs-14);
+          }
+        }
+        tbody {
+          td {
+            font-size: var(--fs-14);
+          }
+        }
+      }
+    }
+    .showing_sub_data {
+      p {
+        font-size: var(--fs-14);
+      }
+    }
+  }
+  .personal_details {
+    label {
+      font-size: var(--fs-13);
+    }
+    .form-control {
+      font-size: var(--fs-13);
+    }
+  }
+
+  .submit_btn {
+    .btns {
+      font-size: var(--fs-13);
+    }
+  }
+  .pagination {
+    .page-link {
+      padding: 6px 8px;
+    }
+    .active > .page-link {
+      background-color: var(--orange);
+      border: 1px solid var(--orange);
+      color: var(--white);
+    }
+  }
+}

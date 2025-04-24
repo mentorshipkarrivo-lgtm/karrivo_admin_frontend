@@ -1,0 +1,225 @@
+.main_section {
+  .welcome_user_data {
+    background: var(--dark-slate-blue);
+    color: var(--white);
+    &:after {
+      content: "";
+      background-image: url(/images/banner-header.svg);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      opacity: 0.5;
+      background-position: bottom right;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      border-radius: 20px;
+    }
+    .welcome_data {
+      .user_heading {
+        h1 {
+          font-size: var(--fs-45);
+          font-weight: 700;
+        }
+        h5 {
+          font-size: var(--fs-22);
+          font-weight: 300;
+        }
+      }
+      p {
+        font-weight: 300;
+      }
+    }
+  }
+  .translations_data {
+    border: 1px solid var(--border-color);
+    background-color: var(--dark-slate-blue);
+    h5 {
+      font-size: var(--fs-23);
+      font-weight: 600;
+      color: var(--orange);
+    }
+  }
+  .upcoming_reating_data {
+    .upcoming_reating_text {
+      h5 {
+        color: var(--black);
+        font-size: var(--fs-17);
+        font-weight: 800;
+      }
+    }
+
+    .upcoming_reating_price {
+      background-color: var(--light-blue);
+      color: var(--light-green);
+      padding: 2px 11px;
+      border-radius: 4px;
+      font-weight: 700;
+      p {
+        font-size: var(--fs-12);
+      }
+    }
+  }
+  .coin_cards {
+    .coin_cards_data {
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      .coin_main_data {
+        h6 {
+          color: var(--black);
+          font-weight: 600;
+          font-size: var(--fs-18);
+        }
+        h5 {
+          color: var(--black);
+          font-weight: 600;
+          font-size: var(--fs-30);
+        }
+      }
+    }
+    .total_tokens {
+      background: url(/images/main_dashboard/bg-circle.png) #e6accf;
+    }
+    .raised {
+      background: url(/images/main_dashboard/raised-bg.png) #c9e156;
+    }
+    .token_price {
+      background: url(/images/main_dashboard/bg-circle.png) #f4b300;
+    }
+    .total_user {
+      background: url(/images/main_dashboard/raised-bg.png) #f4efebde;
+    }
+    .withdrawal {
+      background: url(/images/main_dashboard/bg-circle.png) #ff855f;
+    }
+    .token_sold {
+      background: url(/images/main_dashboard/raised-bg.png) #43f4ea;
+    }
+    .referral_amount {
+      background: url(/images/main_dashboard/bg-circle.png) #aa6cfa;
+    }
+  }
+}
+@media (min-width: 1400px) {
+  .w-20 {
+    width: 20% !important;
+  }
+}
+@media all and (min-width: 1200px) and (max-width: 1399px) {
+  .main_section {
+    .coin_cards {
+      .coin_cards_data {
+        .coin_main_data {
+          h6 {
+            font-size: var(--fs-17);
+          }
+          h5 {
+            font-size: var(--fs-25);
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 992px) and (max-width: 1199px) {
+  .main_section {
+    .coin_cards {
+      .coin_cards_data {
+        .coin_main_data {
+          h6 {
+            font-size: var(--fs-17);
+          }
+          h5 {
+            font-size: var(--fs-25);
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 768px) and (max-width: 991px) {
+  .main_section {
+    .coin_cards {
+      .coin_cards_data {
+        .coin_main_data {
+          h6 {
+            font-size: var(--fs-17);
+          }
+          h5 {
+            font-size: var(--fs-25);
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .main_section {
+    .welcome_user_data {
+      .welcome_data {
+        .user_heading {
+          h1 {
+            font-size: var(--fs-27);
+          }
+          h5 {
+            margin-bottom: 0px;
+            font-size: var(--fs-18);
+          }
+        }
+        p {
+          font-size: var(--fs-14);
+        }
+      }
+    }
+    .translations_data {
+      h5 {
+        font-size: var(--fs-20);
+      }
+    }
+    .wallet_card_data {
+      .wallet_card_data_heading {
+        .wallet_card_images {
+          padding: 8px 11px;
+        }
+        .wallet_card_heading {
+          h5 {
+            font-size: var(--fs-17);
+          }
+        }
+      }
+    }
+
+    .upcoming_reating_data {
+      .upcoming_reating_text {
+        h5 {
+          font-size: var(--fs-15);
+        }
+      }
+      .upcoming_reating_price {
+        background-color: var(--light-blue);
+        color: var(--light-green);
+        padding: 2px 11px;
+        border-radius: 4px;
+        font-weight: 700;
+        p {
+          font-size: var(--fs-12);
+        }
+      }
+    }
+    .coin_cards {
+      .coin_cards_data {
+        .coin_main_data {
+          h6 {
+            font-size: var(--fs-17);
+          }
+          h5 {
+            font-size: var(--fs-25);
+          }
+        }
+      }
+    }
+  }
+}

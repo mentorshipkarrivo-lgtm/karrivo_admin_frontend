@@ -1,0 +1,257 @@
+.support_modal {
+  .modal-content {
+    border: 1px solid var(--border-color);
+    background-color: var(--dark-slate-blue);
+    .modal-title {
+      font-size: var(--fs-20);
+      font-weight: 500;
+      color: var(--white);
+    }
+    .create_data {
+      .form-control {
+        font-size: var(--fs-15);
+        font-weight: 300;
+        background-color: transparent;
+        border-radius: 3px;
+        border: 1px solid var(--border-color);
+        border-radius: 1px;
+        &::placeholder {
+          color: var(--white);
+        }
+      }
+      label {
+        font-weight: 300;
+        font-size: var(--fs-15);
+        color: var(--white);
+      }
+    }
+  }
+}
+.btn-close {
+  filter: invert(99%) sepia(1%) saturate(825%) hue-rotate(167deg)
+    brightness(109%) contrast(100%);
+}
+.my_total_team_data {
+  .chart_heading {
+    h6.heading {
+      font-size: var(--fs-20);
+      font-weight: 600;
+      color: var(--orange);
+    }
+  }
+  .profile {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .chart_data {
+    .user_chart {
+      h6 {
+        font-size: 15px;
+        color: var(--white);
+      }
+    }
+    .charts {
+      background-color: var(--light-bg-orange);
+      border-radius: 2px 28px 2px 2px;
+      // width: 400px;
+      p {
+        font-size: 14px;
+        color: var(--white);
+        font-weight: 300;
+      }
+    }
+    .admin_chart {
+      border-radius: 28px 2px 2px 2px !important;
+    }
+    .admin_data {
+      h6 {
+        color: var(--white);
+        font-weight: 400;
+      }
+    }
+  }
+}
+.chart_send_box {
+  background-color: var(--orange);
+  .form-control {
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    height: 55px;
+    font-size: 14px;
+    color: var(--white);
+    &::placeholder {
+      color: var(--white);
+    }
+    &:focus {
+      color: var(--white);
+      background-color: var(--orange);
+      border: 1px solid var(--orange);
+    }
+  }
+}
+@media (min-width: 320px) and (max-width: 1399px) {
+  .my_total_team_data {
+    .chart_data {
+      .charts {
+        width: auto !important;
+      }
+    }
+  }
+}
+@media all and (min-width: 320px) and (max-width: 767px) {
+  .my_total_team_data {
+    .chart_send_box {
+      .form-control {
+        font-size: 13px;
+      }
+    }
+    .chart_data {
+      .admin_data h6 {
+        font-size: 14px;
+      }
+      .user_chart h6 {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.two_factor_section {
+  .two_factor_data {
+    box-shadow: rgba(149, 157, 165, 0.2588235294) 0px 2px 12px;
+    background-color: var(--white);
+    h1 {
+      font-size: var(--fs-30);
+      font-weight: 700;
+    }
+    .copy_input {
+      border-radius: 1px;
+      border: 1px solid var(--orange);
+      .form-control {
+        font-size: var(--fs-15);
+        font-weight: 600;
+        color: var(--black);
+        &::placeholder {
+          color: var(--black);
+        }
+      }
+      .copy_button {
+        background-color: var(--orange);
+        color: var(--white);
+        border-radius: 1px !important;
+        padding: 5px 15px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+    }
+    .qr_code_data {
+      img {
+        filter: contrast(0.5);
+      }
+    }
+    .download_google_data {
+      h5 {
+        font-size: 22px;
+        font-weight: 700;
+      }
+      p {
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 1px solid var(--orange);
+      }
+    }
+  }
+}
+.legal_section {
+  .legal_data {
+    box-shadow: rgba(149, 157, 165, 0.2588235294) 0px 2px 12px;
+    background-color: var(--white);
+    h1 {
+      font-size: 30px;
+      font-weight: 700;
+      font-family: unset;
+    }
+  }
+}
+
+// start new css
+.profile_section {
+  .support_chart_main_box {
+    background-color: #1b232d;
+  }
+  .chart_data {
+    .user_chart {
+      h6 {
+        font-size: 15px;
+        color: var(--white);
+        text-transform: capitalize;
+        font-family: unset !important;
+        font-weight: 600;
+      }
+    }
+    .charts {
+      background-color: var(--light-bg-orange);
+      border-radius: 2px 28px 2px 2px;
+      // width: 400px;
+      p {
+        font-size: 14px;
+        color: var(--white);
+        font-weight: 300;
+      }
+    }
+    .admin_chart {
+      border-radius: 28px 2px 2px 2px !important;
+    }
+    .admin_data {
+      h6 {
+        font-size: 15px;
+        color: var(--white);
+        text-transform: capitalize;
+        font-family: unset !important;
+        font-weight: 600;
+      }
+    }
+  }
+  .charts {
+    background-color: var(--light-bg-orange);
+    border-radius: 2px 28px 2px 2px;
+    // width: 400px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 575px) {
+  .profile_section .chart_data {
+    .admin_data h6,
+    .user_chart h6 {
+      font-size: 12px;
+    }
+    .charts {
+      width: auto;
+      p{
+        font-size: 12px;
+      }
+    }
+  }
+}
+.chat_card {
+  max-height: 400px; /* Set a max height to create a scrollable area */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+.chat_card::-webkit-scrollbar {
+  width: 6px !important ;
+}
+
+.chat_card::-webkit-scrollbar-track {
+  background: rgba(231, 131, 39, 0.37) !important;
+  border-radius: 30px;
+}
+
+.chat_card::-webkit-scrollbar-thumb {
+  background-color: #bd7809 !important;
+  border-radius: 10px !important;
+}
+
+.chat_card::-webkit-scrollbar-thumb:hover {
+  background: #555 !important;
+}

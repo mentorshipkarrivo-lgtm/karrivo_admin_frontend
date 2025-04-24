@@ -1,0 +1,29 @@
+@import "./base/base";
+@import "./components/components";
+@import "./pages/pages";
+@import "./pages/support.scss";
+
+.statusRed {
+    color: red !important;
+  }
+  .statusGree {
+    color: green !important;
+  }
+  .statusWarring {
+    color: goldenrod !important;
+  }
+
+  
+  @font-face {
+    font-family: "Archivo-Sans";
+  src: url(/font/archivo/archivo_regular.ttf); 
+    // src: url("../public/font/archivo_regular.ttf");
+  }  
+
+  .jaimax_head{
+    text-decoration: none;
+    color: white;
+    font-family:"Archivo-Sans" !important;
+    font-size:20px !important;
+    font-weight:500 !important;
+  }
