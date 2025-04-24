@@ -103,6 +103,7 @@ const Referral = () => {
                       <tr>
                         <th scope="col">S.No</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Phone Number</th>
                         <th scope="col">Referral ID</th>
                         <th scope="col">No of Referral</th>
                         <th scope="col">No of Sub Referral</th>
@@ -152,7 +153,9 @@ const Referral = () => {
                               .
                             </td>
                             <td>{data.name || "N/A"}</td>
+                            <td> {data.phone || "N/A"}</td>
                             <td> {data.username || "N/A"}</td>
+
                             {/* <td>{data.referenceCount || 0}</td> */}
 
                             <td>{data.referenceCount || 0}</td>
