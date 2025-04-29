@@ -417,6 +417,8 @@ const Withdrawal = () => {
 
                             <td>
                               <textarea
+                                cols={30}
+                                rows={3}
                                 name=""
                                 disabled
                                 value={`Bank Name: ${
@@ -431,6 +433,8 @@ const Withdrawal = () => {
 
                             <td>
                               <textarea
+                                cols={30}
+                                rows={3}
                                 name=""
                                 disabled
                                 value={data.note}

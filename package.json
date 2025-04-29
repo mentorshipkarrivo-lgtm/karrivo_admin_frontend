@@ -17,6 +17,8 @@
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
+    "file-saver": "^2.0.5",
+    "formik": "^2.4.6",
     "fs-extra": "^11.2.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.3",
@@ -30,7 +32,9 @@
     "react-toastify": "^10.0.5",
     "sass": "^1.77.6",
     "sweetalert2": "^11.6.13",
-    "tinymce": "^7.2.1"
+    "tinymce": "^7.2.1",
+    "xlsx": "^0.18.5",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",

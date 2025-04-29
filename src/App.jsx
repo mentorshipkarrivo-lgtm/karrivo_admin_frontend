@@ -26,6 +26,7 @@ import PublicRoute from "./router/PublicRoute";
 import Setting from "./pages/Setting";
 
 import NoAccess from "./features/noaccess/NoAccess";
+import Userinfo from "./features/userinfo/userinfo";
 
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -82,6 +83,7 @@ const App = () => {
             <Route path={"/wallet-management"} element={<WalletManagement />} />
             <Route path={"/setting"} element={<Setting />} />
             <Route path={"/bonus-history"} element={<BonusHistory />} />
+            <Route path={"/get-user-details"} element={<Userinfo />} />
           </Route>
         )}
         {isKycS && isWalletS && !isWithdrawalS && (

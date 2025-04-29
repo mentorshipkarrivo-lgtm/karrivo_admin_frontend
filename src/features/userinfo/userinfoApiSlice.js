@@ -1,9 +1,20 @@
-import { apiSlice } from "../services/api/jaiMaxApi";
+import { apiSlice } from "../../services/api/jaiMaxApi";
+
 export const userInfoApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserInfo: builder.query({
-      query: () => `Admin/userifo`,
-      method: "POST",
+      query: (username) => ({
+        url: `Admin/userinfo`,
+        method: "POST",
+        body: { username },
+      }),
+
+      transformResponse: (response) => {
+        return response;
+      },
+      transformErrorResponse: (response) => {
+        return response;
+      },
     }),
   }),
 });

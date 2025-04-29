@@ -7,19 +7,19 @@ import logo from "../../public/site_logo.png";
 
 const Sidebar = () => {
   const { sidebarMenu, setSidebarMenu } = useContext(StateContext);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const userDataString = localStorage.getItem("userData");
   const userData = JSON.parse(userDataString);
   const permissions = userData?.data?.permissions;
   const isKycS = permissions?.includes("KYC MANAGEMENT");
   const isWalletS = permissions?.includes("WALLET MANAGEMENT");
   const isWithdrawalS = permissions?.includes("WITHDRAW MANAGEMENT");
-  const arr1 = ["KYC MANAGEMENT","WALLET MANAGEMENT"];
-  const isKyc = permissions?.every(i => arr1.includes(i));
-  const arr2 = ["WALLET MANAGEMENT","WITHDRAW MANAGEMENT"];
-  const isWallet = permissions?.every(i => arr2.includes(i));
-  const arr3 = ["WITHDRAW MANAGEMENT","KYC MANAGEMENT"];
-  const isWithdrawal = permissions?.every(i => arr3.includes(i));
+  const arr1 = ["KYC MANAGEMENT", "WALLET MANAGEMENT"];
+  const isKyc = permissions?.every((i) => arr1.includes(i));
+  const arr2 = ["WALLET MANAGEMENT", "WITHDRAW MANAGEMENT"];
+  const isWallet = permissions?.every((i) => arr2.includes(i));
+  const arr3 = ["WITHDRAW MANAGEMENT", "KYC MANAGEMENT"];
+  const isWithdrawal = permissions?.every((i) => arr3.includes(i));
 
   const handleLogout = () => {
     Swal.fire({
@@ -37,7 +37,6 @@ const Sidebar = () => {
       }
     });
   };
-console.log(sidebarMenu)
 
   const sidebarData = [
     {
@@ -80,6 +79,12 @@ console.log(sidebarMenu)
       mainButton: "Legal Updation",
       images: "legal.png",
       link: "/legal-updation",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "User Info",
+      images: "my-team.png",
+      link: "/get-user-details",
       dropDown: "side_drop",
     },
     {
@@ -145,7 +150,7 @@ console.log(sidebarMenu)
       images: "wallet.png",
       link: "/wallet-management",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -160,7 +165,7 @@ console.log(sidebarMenu)
       images: "wallet.png",
       link: "/wallet-management",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -175,7 +180,7 @@ console.log(sidebarMenu)
       images: "kyc.png",
       link: "/kyc-management",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -190,7 +195,7 @@ console.log(sidebarMenu)
       images: "withdrawal.png",
       link: "/withdrawal",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -211,7 +216,7 @@ console.log(sidebarMenu)
       images: "wallet.png",
       link: "/wallet-management",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -253,7 +258,7 @@ console.log(sidebarMenu)
       images: "wallet.png",
       link: "/wallet-management",
       dropDown: "side_drop",
-    },  
+    },
     {
       mainButton: "Logout",
       images: "logout.png",
@@ -278,12 +283,16 @@ console.log(sidebarMenu)
               style={{width:'115px'}}
             /> */}
 
-
             {sidebarMenu ? (
-              <img src={logo} alt="logo-image" style={{ width: "48.021px" }} className="img-fluid"  />
+              <img
+                src={logo}
+                alt="logo-image"
+                style={{ width: "48.021px" }}
+                className="img-fluid"
+              />
             ) : (
               // <img src={`/images/sidebar/jaiMaxColouredLogo.svg`} alt="logo-image" className="img-fluid" />
-              <div className = "d-flex gap-3">
+              <div className="d-flex gap-3">
                 <img
                   src={logo}
                   alt="logo-image"
@@ -295,634 +304,655 @@ console.log(sidebarMenu)
             )}
           </Link>
           <div
-              className="menu_data d-lg-none"
-              onClick={() => setSidebarMenu(!sidebarMenu)}
-            >
-              <Link to="#" className="">
-                <img
-                  src={`/images/svg/close.svg`}
-                  alt="menu-svg"
-                />
-              </Link>
-            </div>
+            className="menu_data d-lg-none"
+            onClick={() => setSidebarMenu(!sidebarMenu)}
+          >
+            <Link to="#" className="">
+              <img src={`/images/svg/close.svg`} alt="menu-svg" />
+            </Link>
+          </div>
         </div>
         <div className="sidebar_list_data">
-        {( permissions?.length == 0 && (
-          <div className="accordion accordion-flush" id="accordionFlushExample">
-            {sidebarData.map((data, i) => (
-              data.onClick ? (
-                <div
-                onClick={data.onClick} // Attach onClick handler for Logout
-                className={`text-decoration-none ${data.active}`}
-                key={i}
-              >
-                <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-                  <h2 className="accordion-header">
-                    <button
-                      className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                      type="button"
-                    >
-                      <img
-                        src={`/images/sidebar/${data.images}`}
-                        alt="home-img"
-                        className="img-fluid"
-                      />
-                      {data.mainButton}
-                    </button>
-                  </h2>
-                </div>
-              </div>
-              ) : ( 
-              <NavLink
-                to={data.link}
-                className={`text-decoration-none ${data.active}`}
-                key={i}
-              >
-                <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-                  <h2 className="accordion-header">
-                    <button
-                      className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#flush-collapse${data.id}`}
-                      aria-expanded="false"
-                      aria-controls={`flush-collapse${data.id}`}
-                    >
-                      <img
-                        src={`/images/sidebar/${data.images}`}
-                        alt="home-img"
-                        className="img-fluid"
-                      />
-                      {data.mainButton}
-                    </button>
-                  </h2>
+          {permissions?.length == 0 && (
+            <div
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
+            >
+              {sidebarData.map((data, i) =>
+                data.onClick ? (
                   <div
-                    id={`flush-collapse${data.id}`}
-                    className="accordion-collapse collapse"
-                    data-bs-parent="#accordionFlushExample"
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
                   >
-                    {data.sidebarList && (
-                      <div className="accordion-body pb-1">
-                        <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                          {data?.sidebarList?.map((list, i) => (
-                            <li key={i} className="mb-2">
-                              <NavLink
-                                to={list.sidebarlink}
-                                className="text-decoration-none"
-                              >
-                                {list.lists}
-                              </NavLink>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
                   </div>
-                </div>
-              </NavLink>
-              )
-            ))}
-          </div>
-        ))} 
-        {( permissions?.length == 2 && isKyc && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_kyc_wallet.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-            <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
-            >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-        {( permissions?.length == 2 && isWallet && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_wallet_bonus.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 2 && isKyc && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_kyc_wallet.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-        {( permissions?.length == 2 && isWithdrawal && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_kyc_bonus.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 2 && isWallet && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_wallet_bonus.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-         {( permissions?.length == 1 && isWalletS && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_wallet.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 2 && isWithdrawal && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_kyc_bonus.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-         {( permissions?.length == 1 && isKycS && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_kyc.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 1 && isWalletS && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_wallet.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-        {(  permissions?.length == 1 && isWithdrawalS && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_withdrawal.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 1 && isKycS && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_kyc.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
-        {( permissions?.length == 3 && (
-      <div className="accordion accordion-flush" id="accordionFlushExample">
-      {sidebarData_admin.map((data, i) => (
-        data.onClick ? (
-          <div
-          onClick={data.onClick} // Attach onClick handler for Logout
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
-          </div>
-        </div>
-        ) : ( 
-        <NavLink
-          to={data.link}
-          className={`text-decoration-none ${data.active}`}
-          key={i}
-        >
-          <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
-            <h2 className="accordion-header">
-              <button
-                className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target={`#flush-collapse${data.id}`}
-                aria-expanded="false"
-                aria-controls={`flush-collapse${data.id}`}
-              >
-                <img
-                  src={`/images/sidebar/${data.images}`}
-                  alt="home-img"
-                  className="img-fluid"
-                />
-                {data.mainButton}
-              </button>
-            </h2>
+          )}
+          {permissions?.length == 1 && isWithdrawalS && (
             <div
-              id={`flush-collapse${data.id}`}
-              className="accordion-collapse collapse"
-              data-bs-parent="#accordionFlushExample"
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
             >
-              {data.sidebarList && (
-                <div className="accordion-body pb-1">
-                  <ul className="list-unstyled ps-4 sidebar_list mb-0">
-                    {data?.sidebarList?.map((list, i) => (
-                      <li key={i} className="mb-2">
-                        <NavLink
-                          to={list.sidebarlink}
-                          className="text-decoration-none"
+              {sidebarData_withdrawal.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
                         >
-                          {list.lists}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
               )}
             </div>
-          </div>
-        </NavLink>
-        )
-      ))}
-    </div>
-        ))}
+          )}
+          {permissions?.length == 3 && (
+            <div
+              className="accordion accordion-flush"
+              id="accordionFlushExample"
+            >
+              {sidebarData_admin.map((data, i) =>
+                data.onClick ? (
+                  <div
+                    onClick={data.onClick} // Attach onClick handler for Logout
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                ) : (
+                  <NavLink
+                    to={data.link}
+                    className={`text-decoration-none ${data.active}`}
+                    key={i}
+                  >
+                    <div className="accordion-item sidebardata border-0 my-2 bg-transparent">
+                      <h2 className="accordion-header">
+                        <button
+                          className={`accordion-button collapsed gap-3 sidebar_list rounded-2 shadow-none ${data.dropDown}`}
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#flush-collapse${data.id}`}
+                          aria-expanded="false"
+                          aria-controls={`flush-collapse${data.id}`}
+                        >
+                          <img
+                            src={`/images/sidebar/${data.images}`}
+                            alt="home-img"
+                            className="img-fluid"
+                          />
+                          {data.mainButton}
+                        </button>
+                      </h2>
+                      <div
+                        id={`flush-collapse${data.id}`}
+                        className="accordion-collapse collapse"
+                        data-bs-parent="#accordionFlushExample"
+                      >
+                        {data.sidebarList && (
+                          <div className="accordion-body pb-1">
+                            <ul className="list-unstyled ps-4 sidebar_list mb-0">
+                              {data?.sidebarList?.map((list, i) => (
+                                <li key={i} className="mb-2">
+                                  <NavLink
+                                    to={list.sidebarlink}
+                                    className="text-decoration-none"
+                                  >
+                                    {list.lists}
+                                  </NavLink>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </NavLink>
+                )
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
