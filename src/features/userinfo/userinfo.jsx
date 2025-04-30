@@ -105,6 +105,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import { useGetUserInfoQuery } from "./userinfoApiSlice";
+import { toast } from "react-toastify";
 
 function buildReferralMap(users) {
   const map = new Map();
@@ -144,7 +145,7 @@ const Userinfo = () => {
 
   const handleDirectSearch = () => {
     if (!searchTerm.trim()) {
-      alert("Please enter a Reference ID");
+      toast("Please enter a Reference ID");
       return;
     }
 
@@ -160,7 +161,7 @@ const Userinfo = () => {
 
   const handleChainSearch = () => {
     if (!searchTerm.trim()) {
-      alert("Please enter a Reference ID");
+      toast("Please enter a Reference ID");
       return;
     }
 
@@ -176,7 +177,7 @@ const Userinfo = () => {
 
   const handleShowUserDetails = () => {
     if (!searchTerm.trim()) {
-      alert("Please enter a Reference ID");
+      toast("Please enter a Reference ID");
       return;
     }
 
@@ -198,7 +199,7 @@ const Userinfo = () => {
         userData.status_code === 408 &&
         userData.message?.includes("Token expired")
       ) {
-        alert("Session expired. Please login again.");
+        toast("Session expired. Please login again.");
         // Redirect to login page
         // window.location.href = "/login";
         return;
@@ -228,7 +229,7 @@ const Userinfo = () => {
               chainCount: chainReferrals.length,
             });
           } else {
-            alert("User not found!");
+            toast("User not found!");
           }
         }
       }
@@ -237,7 +238,7 @@ const Userinfo = () => {
 
   const exportToExcel = () => {
     if (!searchTerm.trim()) {
-      alert("Please enter a Reference ID");
+      toast("Please enter a Reference ID");
       return;
     }
 
@@ -246,7 +247,7 @@ const Userinfo = () => {
     // Refresh data from API if needed
     refetch().then(() => {
       if (!userData || !userData.data) {
-        alert("No user data available");
+        toast("No user data available");
         setLoading(false);
         return;
       }
@@ -254,7 +255,7 @@ const Userinfo = () => {
       const { directReferrals = [], chainReferrals = [], user } = userData.data;
 
       if (!user) {
-        alert("User not found!");
+        toast("User not found!");
         setLoading(false);
         return;
       }
@@ -264,7 +265,7 @@ const Userinfo = () => {
       dataToExport.push({
         Name: user.name,
         Username: user.username,
-        Phone: user.phone,
+        Phone: `${user.phone}`,
         Email: user.email,
         ReferralBonus: user.referenceInr,
         DirectReferralsCount: directReferrals.length,
@@ -281,16 +282,18 @@ const Userinfo = () => {
         Email: "Email",
         ReferralBonus: "Referral Bonus",
         ReferredBy: "Referred By",
+        DirectReferalsCount: "DirectReferalsCount",
       });
 
       directReferrals.forEach((user) => {
         dataToExport.push({
           Name: user.name,
           Username: user.username,
-          Phone: user.phone,
+          Phone: `${user.phone}`,
           Email: user.email,
           ReferralBonus: user.referenceInr,
           ReferredBy: user.referenceId,
+          DirectReferalsCount: user.referenceCount,
         });
       });
 
@@ -304,16 +307,18 @@ const Userinfo = () => {
         Email: "Email",
         ReferralBonus: "Referral Bonus",
         ReferredBy: "Referred By",
+        DirectReferalsCount: "DirectReferalsCount",
       });
 
       chainReferrals.forEach((user) => {
         dataToExport.push({
           Name: user.name,
           Username: user.username,
-          Phone: user.phone,
+          Phone: `${user.phone}`,
           Email: user.email,
           ReferralBonus: user.referenceInr,
           ReferredBy: user.referenceId,
+          DirectReferalsCount: user.referenceCount,
         });
       });
 
@@ -332,8 +337,8 @@ const Userinfo = () => {
       const today = new Date().toISOString().slice(0, 10);
       saveAs(data, `${user.name}_referrals_${today}.xlsx`);
 
-      alert("Download started successfully!");
       setLoading(false);
+      toast("Download started successfully!");
     });
   };
 
@@ -521,7 +526,13 @@ const Userinfo = () => {
                           className="text-center p-3"
                           style={{ backgroundColor: "#ec660f" }}
                         >
-                          Referred by
+                          Username
+                        </th>
+                        <th
+                          className="text-center p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          Ditrect Refreals
                         </th>
                       </tr>
                     </thead>
@@ -545,7 +556,8 @@ const Userinfo = () => {
                           <td className="p-3">{user.phone}</td>
                           <td className="p-3">{user.email}</td>
                           <td className="p-3">{user.referenceInr}</td>
-                          <td className="p-3">{user.referenceId}</td>
+                          <td className="p-3">{user.username}</td>
+                          <td className="p-3">{user.referenceCount}</td>
                         </tr>
                       ))}
                     </tbody>
