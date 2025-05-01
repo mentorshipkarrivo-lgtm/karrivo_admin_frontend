@@ -228,5 +228,5 @@ const App = () => {
     </>
   );
 };
-// changes of Admin fro access RAjyalakshmi
+
 export default App;
