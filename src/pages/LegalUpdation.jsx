@@ -65,7 +65,6 @@ const LegalUpdation = () => {
     }
   };
 
-  // checking the acess of the user
 
   return (
     <DashboardLayout>
