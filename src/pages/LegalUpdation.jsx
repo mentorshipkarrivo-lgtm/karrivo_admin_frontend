@@ -65,6 +65,8 @@ const LegalUpdation = () => {
     }
   };
 
+  // checking the acess of the user
+
   return (
     <DashboardLayout>
       <section className="profile_section py-4">
