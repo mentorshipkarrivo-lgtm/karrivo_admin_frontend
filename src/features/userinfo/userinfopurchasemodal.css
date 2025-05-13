@@ -1,0 +1,110 @@
+/* External CSS for Purchase Table Styling */
+
+/* Table Container */
+#purchase-table-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Main Table */
+#purchase-table {
+  background-color: #1e1e1e;
+  border-color: #3a3a3a;
+  border-collapse: collapse;
+  margin: 0;
+}
+
+/* Table Header */
+#purchase-table-header {
+  background: linear-gradient(45deg, #ec660f, #f07d2c);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Cells */
+#purchase-header-number,
+#purchase-header-date,
+#purchase-header-amount,
+#purchase-header-tokens {
+  color: white;
+  font-weight: 600;
+  border-color: #ec660f;
+  letter-spacing: 0.5px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Table Rows */
+.purchase-table-row {
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+}
+
+/* Alternating row colors */
+.purchase-table-row:nth-child(odd) {
+  background-color: #2e2e2e;
+  color: #fff;
+}
+
+.purchase-table-row:nth-child(even) {
+  background-color: #262626;
+  color: #fff;
+}
+
+/* Row hover effects */
+.purchase-table-row:hover {
+  background-color: #3a3a3a;
+  border-left: 3px solid #ec660f;
+  border-right: 3px solid #ec660f;
+}
+
+/* Purchase number badge */
+.purchase-badge {
+  background-color: #ec660f;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  min-width: 30px;
+  display: inline-block;
+}
+
+/* Date cell */
+.purchase-cell-date {
+  font-size: 15px;
+}
+
+/* Amount cell */
+.purchase-cell-amount {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Amount value */
+.purchase-amount {
+  color: #eaeaea;
+}
+
+/* Currency text */
+.purchase-currency {
+  color: #f07d2c;
+}
+
+/* Tokens cell */
+.purchase-cell-tokens {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f07d2c;
+}
+
+/* Empty state */
+#purchase-empty-row {
+  background-color: #2e2e2e;
+}
+
+#purchase-empty-cell {
+  color: #999;
+  font-style: italic;
+}

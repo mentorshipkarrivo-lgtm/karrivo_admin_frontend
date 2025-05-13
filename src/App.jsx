@@ -26,7 +26,8 @@ import PublicRoute from "./router/PublicRoute";
 import Setting from "./pages/Setting";
 
 import NoAccess from "./features/noaccess/NoAccess";
-import Userinfo from "./features/userinfo/userinfo";
+import Userinfo from "./features/userinfo/Userinfo";
+// import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
 
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -84,6 +85,7 @@ const App = () => {
             <Route path={"/setting"} element={<Setting />} />
             <Route path={"/bonus-history"} element={<BonusHistory />} />
             <Route path={"/get-user-details"} element={<Userinfo />} />
+            {/* <Route path={"/share-holders"} element={<ShareHolderDashboard />} /> */}
           </Route>
         )}
         {isKycS && isWalletS && !isWithdrawalS && (

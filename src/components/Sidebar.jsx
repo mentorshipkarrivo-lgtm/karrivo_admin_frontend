@@ -86,7 +86,13 @@ const Sidebar = () => {
       images: "my-team.png",
       link: "/get-user-details",
       dropDown: "side_drop",
-    },
+    }, 
+    //  {
+    //   mainButton: "Share Holders",
+    //   images: "my-team.png",
+    //   link: "/share-holders",
+    //   dropDown: "side_drop",
+    // },
     {
       mainButton: "Withdrawal Bonus",
       images: "withdrawal.png",
