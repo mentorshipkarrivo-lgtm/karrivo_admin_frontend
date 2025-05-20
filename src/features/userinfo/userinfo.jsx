@@ -2162,13 +2162,12 @@ import { saveAs } from "file-saver";
 import { FileText, File, Download, FileDown } from "lucide-react";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-
 import DashboardLayout from "../../Layout/DashboardLayout";
 import { useGetUserInfoQuery } from "./userinfoApiSlice";
 import { toast } from "react-toastify";
 import "./userinfopurchasemodal.css";
 import { Modal, Button } from "react-bootstrap";
-
+import Edituser from "./EditableUser";
 function buildReferralMap(users) {
   const map = new Map();
   users.forEach((user) => {
@@ -2188,6 +2187,8 @@ const Userinfo = () => {
   const [refType, setRefType] = useState("");
   const [loading, setLoading] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+
 
   // Modal state
   const [showModal, setShowModal] = useState(false);
@@ -2203,7 +2204,7 @@ const Userinfo = () => {
   } = useGetUserInfoQuery(searchTerm, {
     skip: !searchTerm.trim(),
   });
-  console.log(userData, "userData");
+  console.log(userData?.data?.user, "userData");
   const clearAll = () => {
     setReferrals([]);
     setUserDetails(null);
@@ -3300,7 +3301,7 @@ const Userinfo = () => {
                   disabled={loading}
                   className="btn text-white"
                   style={{ backgroundColor: "#ec660f" }}
-                  // className="flex items-center gap-2"
+                // className="flex items-center gap-2"
                 >
                   {loading ? (
                     "Generating PDF..."
@@ -3351,6 +3352,48 @@ const Userinfo = () => {
                     >
                       User Details
                     </h4>
+                    <h4
+                      className="text-center mb-4"
+                      onClick={() => setShowEditModal(true)}
+                      style={{
+                        fontSize:'20px',
+                        color: "#f3f3f3",
+                        position: 'absolute',
+                        right: '10px',
+                        top: '10px',
+                        backgroundColor: '#ec660f',
+                        padding: '5px',
+                        borderRadius: '10px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Edit
+                    </h4>
+                    <Modal
+                      show={showEditModal}
+                      onHide={() => setShowEditModal(false)}
+                      centered
+                      size="lg"
+                    >
+                      <Modal.Header
+                        closeButton
+                        style={{
+                          backgroundColor: "#1b232d",
+                          color: "#fff",
+                          borderBottom: "1px solid #1b242d"
+                        }}
+                      >
+                      
+                      </Modal.Header>
+                      <Modal.Body
+                        style={{
+                          backgroundColor: "#1b242d",
+                          color: "#fff"
+                        }}
+                      >
+                        <Edituser user={userData?.data?.user} />
+                      </Modal.Body>
+                    </Modal>
                     <ul className="list-unstyled mb-0">
                       <li className="mb-2">
                         <strong>Name:</strong> {userDetails.name}
@@ -3527,15 +3570,15 @@ const Userinfo = () => {
                                 {!userDetails.firstThreeInvestments ||
                                   (userDetails.firstThreeInvestments.length ===
                                     0 && (
-                                    <tr>
-                                      <td
-                                        colSpan="5"
-                                        className="text-center p-3"
-                                      >
-                                        No investment data available
-                                      </td>
-                                    </tr>
-                                  ))}
+                                      <tr>
+                                        <td
+                                          colSpan="5"
+                                          className="text-center p-3"
+                                        >
+                                          No investment data available
+                                        </td>
+                                      </tr>
+                                    ))}
                               </tbody>
                             </table>
                           </div>
@@ -3675,15 +3718,15 @@ const Userinfo = () => {
                                 {!userDetails.firstThreePurchases ||
                                   (userDetails.firstThreePurchases.length ===
                                     0 && (
-                                    <tr>
-                                      <td
-                                        colSpan="4"
-                                        className="text-center p-3"
-                                      >
-                                        No purchase data available
-                                      </td>
-                                    </tr>
-                                  ))}
+                                      <tr>
+                                        <td
+                                          colSpan="4"
+                                          className="text-center p-3"
+                                        >
+                                          No purchase data available
+                                        </td>
+                                      </tr>
+                                    ))}
                               </tbody>
                             </table>
                           </div>
@@ -4141,7 +4184,7 @@ const Userinfo = () => {
                                     )
                                   )}
                                   {!selectedUser.firstThreePurchases ||
-                                  selectedUser.firstThreePurchases.length ===
+                                    selectedUser.firstThreePurchases.length ===
                                     0 ? (
                                     <tr
                                       style={{
@@ -4424,7 +4467,7 @@ const Userinfo = () => {
                                     )
                                   )}
                                   {!selectedUser.firstThreeInvestments ||
-                                  selectedUser.firstThreeInvestments.length ===
+                                    selectedUser.firstThreeInvestments.length ===
                                     0 ? (
                                     <tr
                                       style={{
