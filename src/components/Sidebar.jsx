@@ -53,7 +53,7 @@ const Sidebar = () => {
     },
     {
       mainButton: "Admin Users",
-      images: "my-team.png",
+      images: "admin.png",
       link: "/total-admin",
       dropDown: "side_drop",
     },
@@ -83,16 +83,22 @@ const Sidebar = () => {
     },
     {
       mainButton: "User Info",
-      images: "my-team.png",
+      images: "usericon.png",
       link: "/get-user-details",
       dropDown: "side_drop",
-    }, 
+    },
     //  {
     //   mainButton: "Share Holders",
     //   images: "my-team.png",
     //   link: "/share-holders",
     //   dropDown: "side_drop",
     // },
+    {
+      mainButton: "Get Busniess Report",
+      images: "report.png",
+      link: "/get-business-report",
+      dropDown: "side_drop",
+    },
     {
       mainButton: "Withdrawal Bonus",
       images: "withdrawal.png",
@@ -107,13 +113,13 @@ const Sidebar = () => {
     },
     {
       mainButton: "Bonus Coins History",
-      images: "history.png",
+      images: "bonuscoinhistory.png",
       link: "/bonus-history",
       dropDown: "side_drop",
     },
     {
       mainButton: "Wallet Management",
-      images: "wallet.png",
+      images: "walleticon.png",
       link: "/wallet-management",
       dropDown: "side_drop",
     },
@@ -127,6 +133,12 @@ const Sidebar = () => {
       mainButton: "Software Setting",
       images: "setting.svg",
       link: "/setting",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Delete Account",
+      images: "delete.png",
+      link: "/get-deleted-accounts",
       dropDown: "side_drop",
     },
     {
