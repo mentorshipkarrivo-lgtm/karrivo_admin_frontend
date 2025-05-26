@@ -296,8 +296,8 @@ const Withdrawal = () => {
                     <thead>
                       <tr>
                         <th scope="col">S.No</th>
-                        <th scope="col">Transaction Id</th>
                         <th scope="col">Customer Name</th>
+                        <th scope="col">Transaction Id</th>
                         <th scope="col">Customer Id</th>
                         <th scope="col">Currency Type</th>
                         <th scope="col">Withdrawal Amount</th>
@@ -369,8 +369,8 @@ const Withdrawal = () => {
                                 i}
                               .
                             </td>
-                            <td> {data?._id}</td>
                             <td>{data?.userId?.name}</td>
+                            <td> {data?._id}</td>
                             <td>{data?.userId?.username}</td>
                             <td>{data.currency}</td>
                             {/* <td>{data.amount}</td> */}
