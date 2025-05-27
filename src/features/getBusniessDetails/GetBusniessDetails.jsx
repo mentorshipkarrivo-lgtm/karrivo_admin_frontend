@@ -1445,20 +1445,7 @@ function GetBusinessDetails() {
                             >
                               Transaction ID
                             </th>
-                            <th
-                              style={{
-                                color: "white",
-                                fontWeight: "600",
-                                borderColor: "#ec660f",
-                                letterSpacing: "0.5px",
-                                fontSize: "16px",
-                                textTransform: "uppercase",
-                                padding: "12px",
-                                textAlign: "center",
-                              }}
-                            >
-                              Status
-                            </th>
+                           
                           </tr>
                         </thead>
                         <tbody>
@@ -1553,32 +1540,6 @@ function GetBusinessDetails() {
                                   }}
                                 >
                                   {item.transactionId}
-                                </td>
-                                <td
-                                  style={{
-                                    textAlign: "center",
-                                    padding: "12px",
-                                    fontSize: "15px",
-                                  }}
-                                >
-                                  <span
-                                    style={{
-                                      backgroundColor:
-                                        item.transactionStatus === "Completed"
-                                          ? "#198754"
-                                          : "#ffc107",
-                                      color:
-                                        item.transactionStatus === "Completed"
-                                          ? "white"
-                                          : "black",
-                                      padding: "4px 8px",
-                                      borderRadius: "4px",
-                                      fontSize: "12px",
-                                      fontWeight: "bold",
-                                    }}
-                                  >
-                                    {item.transactionStatus}
-                                  </span>
                                 </td>
                               </tr>
                             )
