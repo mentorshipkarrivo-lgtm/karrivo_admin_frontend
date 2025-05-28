@@ -4,9 +4,15 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
 import Modals from "../components/Modals";
-import { useKycListQuery } from "../features/kyc/kycApiSlice";
+import { kycApiSlice, useKycListQuery } from "../features/kyc/kycApiSlice";
 import { ClipLoader } from "react-spinners";
-
+import {
+  CheckCircle,
+  XCircle,
+  Clock,
+  AlertCircle,
+  FileText,
+} from "lucide-react";
 const KycApprove = () => {
   const [show, setShow] = useState(false);
   const [deleteModal1, setDeleteModal1] = useState(false);
@@ -40,7 +46,7 @@ const KycApprove = () => {
 
   const { data, isLoading, error, refetch } = useKycListQuery(queryParams);
   const tableData = data;
-
+  console.log("tableData", tableData);
   const handleShow = (data) => {
     setId(data);
     setShow(true);
@@ -50,11 +56,54 @@ const KycApprove = () => {
     refetch();
   }, []);
 
+  const getStatusIcon = (status) => {
+    const iconProps = { size: 32, strokeWidth: 2 };
+
+    switch (status?.toLowerCase()) {
+      case "approved":
+      case "approve":
+        return <CheckCircle {...iconProps} className="text-light" />;
+      case "rejected":
+      case "reject":
+        return <XCircle {...iconProps} className="text-light" />;
+      case "pending":
+      case "inprogress":
+      case "in-progress":
+        return <Clock {...iconProps} className="text-light" />;
+      case "submitted":
+      case "open":
+        return <AlertCircle {...iconProps} className="text-light" />;
+      case "under review":
+      case "review":
+        return <FileText {...iconProps} className="text-light" />;
+      default:
+        return <FileText {...iconProps} className="text-light" />;
+    }
+  };
+
   return (
     <DashboardLayout>
       <section className="profile_section py-4">
         <div className="container-fluid">
           <div className="row">
+            {tableData?.data?.kycStatusCounts.map((data, i) => (
+              <div
+                className="col-12 col-sm-6 col-md-6 col-xl-5 col-xxl-3"
+                key={i}
+              >
+                <div className="my_total_team_data mb-4 rounded-3 px-3 py-3 py-md-4">
+                  <div className="total_user_card d-flex align-items-center gap-2 gap-md-3">
+                    <div className="total_user_images rounded-3 p-2 p-md-4 d-flex align-items-center justify-content-center">
+                      {getStatusIcon(data._id)}
+                    </div>
+                    <div className="total_user_card_data">
+                      <h2>{data._id}</h2>
+                      <h5>{data.count}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
             <div className="col-12">
               <div className="my_total_team_data rounded-3 px-3 pb-0 py-4">
                 <h1 className="mb-3">KYC Management</h1>

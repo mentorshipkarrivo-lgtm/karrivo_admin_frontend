@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useSendTransactionMutation } from "../features/user/userApiSlice";
 import { MyContext } from "../features/auth/AuthContext";
 import { StateContext } from "../context/StateContext";
+import { useGetShareHoldersQuery } from "../features/shareHolders/shareHoldersApiSlice"; 
 
 const Modals = ({
   show,
@@ -28,6 +29,8 @@ const Modals = ({
   handleCheckClose2,
   check2,
   setCheck2,
+  deleteModal2,
+
   // formData,
   id,
 }) => {
@@ -665,6 +668,10 @@ const Modals = ({
           </div>
         </Modal.Footer>
       </Modal>
+
+           {/* qualified list members */}
+
+
     </div>
   );
 };

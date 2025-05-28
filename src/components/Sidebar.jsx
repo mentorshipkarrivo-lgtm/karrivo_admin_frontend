@@ -87,12 +87,12 @@ const Sidebar = () => {
       link: "/get-user-details",
       dropDown: "side_drop",
     },
-    //  {
-    //   mainButton: "Share Holders",
-    //   images: "my-team.png",
-    //   link: "/share-holders",
-    //   dropDown: "side_drop",
-    // },
+    {
+      mainButton: "Share Holders",
+      images: "my-team.png",
+      link: "/share-holders",
+      dropDown: "side_drop",
+    },
     {
       mainButton: "Get Busniess Report",
       images: "report.png",

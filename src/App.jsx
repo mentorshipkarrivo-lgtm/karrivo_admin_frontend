@@ -29,7 +29,7 @@ import NoAccess from "./features/noaccess/NoAccess";
 import Userinfo from "./features/userinfo/Userinfo";
 import GetBusniessDetails from "./features/getBusniessDetails/GetBusniessDetails";
 import DeletedUsersTable from "./features/deleteAccountByAdmin/DeleteAccountByAdmin";
-// import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
+import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
 
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -95,7 +95,7 @@ const App = () => {
               path={"/get-business-report"}
               element={<GetBusniessDetails />}
             />
-            {/* <Route path={"/share-holders"} element={<ShareHolderDashboard />} /> */}
+            <Route path={"/share-holders"} element={<ShareHolderDashboard />} />
           </Route>
         )}
         {isKycS && isWalletS && !isWithdrawalS && (

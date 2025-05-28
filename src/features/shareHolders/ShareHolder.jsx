@@ -1333,6 +1333,10 @@ import { useGetShareHoldersQuery } from "./shareHoldersApiSlice";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Icon } from "@iconify/react/dist/iconify.js";
+// import Modals from "../../components/Modals";
+import { Button, Modal } from "react-bootstrap";
+import { CheckCircle, XCircle, Hourglass } from "lucide-react";
 
 // Utility functions moved outside component to prevent recreation
 function getPhone(phone) {
@@ -1347,6 +1351,19 @@ const ShareHolderDashboard = () => {
   const [isNavigating, setIsNavigating] = useState(false); // State for page navigation
   const [searchTerm, setSearchTerm] = useState(""); // New state for search functionality
   const [filteredUsers, setFilteredUsers] = useState([]); // State to store filtered users
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [qualifiedMembers, setQualifiedMembers] = useState([]);
+  const [selectedUsername, setSelectedUsername] = useState(null);
+  const handleShowUserDetails = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
 
   // Using the RTK Query hook with optimized response handling
   const {
@@ -1503,7 +1520,7 @@ const ShareHolderDashboard = () => {
     if (isLoading) {
       return [...Array(10)].map((_, i) => (
         <tr key={i}>
-          {[...Array(8)].map((_, cellIndex) => (
+          {[...Array(9)].map((_, cellIndex) => (
             <td
               key={`cell-${i}-${cellIndex}`}
               className="p-3"
@@ -1516,17 +1533,17 @@ const ShareHolderDashboard = () => {
       ));
     }
 
-    if (error) {
-      const errorMessage =
-        error.message || error.error || JSON.stringify(error);
-      return (
-        <tr>
-          <td colSpan="8" className="text-center">
-            <div className="alert alert-danger">{errorMessage}</div>
-          </td>
-        </tr>
-      );
-    }
+    // if (error) {
+    //   const errorMessage =
+    //     error.message || error.error || JSON.stringify(error);
+    //   return (
+    //     <tr>
+    //       <td colSpan="8" className="text-center">
+    //         <div className="alert alert-danger">{errorMessage}</div>
+    //       </td>
+    //     </tr>
+    //   );
+    // }
 
     // If no users after filtering
     if (!filteredUsers.length) {
@@ -1544,6 +1561,24 @@ const ShareHolderDashboard = () => {
 
     // Use filtered users when search term exists, otherwise use all users
     const usersToDisplay = filteredUsers;
+
+    const handleShowUserDetails = (username) => {
+      const user = usersToDisplay.find((u) => u.username === username);
+
+      if (
+        user &&
+        Array.isArray(user.qualifiedMembersList) &&
+        user.qualifiedMembersList.length > 0
+      ) {
+        setQualifiedMembers(user.qualifiedMembersList);
+        setSelectedUsername(username);
+      } else {
+        setQualifiedMembers([]);
+        setSelectedUsername(username);
+      }
+
+      setShowModal(true);
+    };
 
     return usersToDisplay.map((user, index) => (
       <tr key={user.username || index}>
@@ -1597,8 +1632,32 @@ const ShareHolderDashboard = () => {
           </div>
         </td>
         <td className="text-center p-3">{user.directReferrals || 0}</td>
-        <td className="text-center p-3">{user.email || "N/A"}</td>
-        <td className="text-center p-3">{getPhone(user.phone)}</td>
+        <td className="text-center p-3">{user.chainReferrals || 0}</td>
+        <td className="text-center p-3">{user.totalTeam || 0}</td>
+        <td className="text-center p-3">
+          {/* <Icon
+                                                      icon="raphael:view"
+                                                      width="24"
+                                                      height="24"
+                                                      style={{ color: "white" }}
+                                                    /> */}
+
+          <button
+            onClick={() => {
+              handleShowUserDetails(user.username);
+            }}
+            disabled={
+              !Array.isArray(user.qualifiedMembersList) ||
+              user.qualifiedMembersList.length === 0
+            }
+            className="btn text-white"
+            style={{ backgroundColor: "#ec660f" }}
+          >
+            View
+          </button>
+        </td>
+        {/* <td className="text-center p-3">{user.email || "N/A"}</td>
+        <td className="text-center p-3">{getPhone(user.phone)}</td> */}
       </tr>
     ));
   }, [
@@ -1803,7 +1862,7 @@ const ShareHolderDashboard = () => {
 
         <div className="container">
           {/* Search component */}
-          {!isLoading && searchComponent}
+          {/* {!isLoading && searchComponent} */}
 
           <div className="table_data table-responsive p-3">
             <table
@@ -1819,7 +1878,7 @@ const ShareHolderDashboard = () => {
                     className="text-center p-3"
                     style={{ backgroundColor: "#ec660f" }}
                   >
-                    S/N
+                    S.No
                   </th>
                   <th
                     className="text-center p-3"
@@ -1849,25 +1908,234 @@ const ShareHolderDashboard = () => {
                     className="text-center p-3"
                     style={{ backgroundColor: "#ec660f" }}
                   >
-                    Direct Referrals
+                    Direct Referals
                   </th>
                   <th
+                    className="text-center p-3"
+                    style={{ backgroundColor: "#ec660f" }}
+                  >
+                    Chain referals
+                  </th>
+                  <th
+                    className="text-center p-3"
+                    style={{ backgroundColor: "#ec660f" }}
+                  >
+                    Total Referals
+                  </th>
+                  <th
+                    className="text-center p-3"
+                    style={{ backgroundColor: "#ec660f" }}
+                  >
+                    Qualified List
+                  </th>
+                  {/* <th
                     className="text-center p-3"
                     style={{ backgroundColor: "#ec660f" }}
                   >
                     Email
                   </th>
-                  <th
+                 <th
                     className="text-center p-3"
                     style={{ backgroundColor: "#ec660f" }}
                   >
                     Phone
-                  </th>
+                  </th> */}
                 </tr>
               </thead>
               <tbody>{tableContent}</tbody>
             </table>
           </div>
+
+          {showModal && (
+            <Modal
+              show={showModal}
+              onHide={() => setShowModal(false)}
+              size="xl"
+              centered
+              className="support_modal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title>Qualified Members</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <div className="table-responsive">
+                  <table
+                    className="table  "
+                    style={{
+                      backgroundColor: "#1b242d",
+                      border: "1px solid #303f50",
+                    }}
+                  >
+                    <thead>
+                      <tr className="text-white">
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          sno
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          Username
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          Name
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          Email
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          Phone
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          DR
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          CR
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          TR
+                        </th>
+                        <th
+                          className="text-center text-white p-3"
+                          style={{ backgroundColor: "#ec660f" }}
+                        >
+                          TASK COMP
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {qualifiedMembers.length > 0 ? (
+                        qualifiedMembers.map((member, index) => (
+                          <tr key={member.username || index}>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {index + 1}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.username}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.name || "N/A"}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.email || "N/A"}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.phone || "N/A"}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.directReferrals || 0}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.chainReferrals || 0}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.totalReferrals || 0}
+                            </td>
+                            <td
+                              className="text-center text-white p-3"
+                              style={{
+                                backgroundColor: "#1b242d",
+                                border: "1px solid #303f50",
+                              }}
+                            >
+                              {member.isQualified === true ? (
+                                <span className="flex items-center justify-center gap-1 text-green-500">
+                                  <CheckCircle size={18} />
+                                </span>
+                              ) : member.isQualified === false ? (
+                                <span className="flex items-center justify-center gap-1 text-red-500">
+                                  <XCircle size={18} />
+                                </span>
+                              ) : (
+                                <span className="flex items-center justify-center gap-1 text-yellow-400">
+                                  <Hourglass size={18} />
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="8" className="text-center">
+                            No qualified members found.
+                          </td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </Modal.Body>
+            </Modal>
+          )}
 
           {/* Pagination controls */}
           {paginationComponent}
