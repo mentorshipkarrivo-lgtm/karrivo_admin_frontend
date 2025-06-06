@@ -7,7 +7,7 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             query: (queryParams) => ({
                 url:`Admin/get-admin-users?${queryParams}`,
                 method: 'GET', 
-            }) 
+            })     
         }),
         viewUser: builder.query({
             query: (userId) => ({
