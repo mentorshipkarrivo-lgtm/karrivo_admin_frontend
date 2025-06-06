@@ -27,9 +27,10 @@ import Setting from "./pages/Setting";
 
 import NoAccess from "./features/noaccess/NoAccess";
 import Userinfo from "./features/userinfo/Userinfo";
-import GetBusniessDetails from "./features/getBusniessDetails/GetBusniessDetails";
+import GetBusniessDetails from "./features/getBusniessAnalyticsDetails/GetBusniessDetails";
 import DeletedUsersTable from "./features/deleteAccountByAdmin/DeleteAccountByAdmin";
 import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
+import GetBusinessReportFromTo from "./features/getBusinessReportFromTo/getBusinessReportFromTo";
 
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -92,8 +93,12 @@ const App = () => {
               element={<DeletedUsersTable />}
             />
             <Route
-              path={"/get-business-report"}
+              path={"/get-business-analytics"}
               element={<GetBusniessDetails />}
+            />
+            <Route
+              path={"/get-business-report"}
+              element={<GetBusinessReportFromTo />}
             />
             <Route path={"/share-holders"} element={<ShareHolderDashboard />} />
           </Route>
