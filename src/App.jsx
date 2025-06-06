@@ -32,6 +32,8 @@ import DeletedUsersTable from "./features/deleteAccountByAdmin/DeleteAccountByAd
 import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
 import GetBusinessReportFromTo from "./features/getBusinessReportFromTo/getBusinessReportFromTo";
 
+
+//app
 const App = () => {
   const userDataString = localStorage.getItem("userData");
   const userData = JSON.parse(userDataString);
