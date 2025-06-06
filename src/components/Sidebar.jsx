@@ -33,18 +33,6 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
-      mainButton: "Busniess Analytics",
-      images: "report.png",
-      link: "/get-business-analytics",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Busniess Report",
-      images: "report.png",
-      link: "/get-business-report",
-      dropDown: "side_drop",
-    },
-    {
       mainButton: "User Management",
       images: "my-team.png",
       link: "/total-user",
@@ -92,12 +80,12 @@ const Sidebar = () => {
       link: "/share-holders",
       dropDown: "side_drop",
     },
-    // {
-    //   mainButton: "Get Busniess Report",
-    //   images: "report.png",
-    //   link: "/get-business-report",
-    //   dropDown: "side_drop",
-    // },
+    {
+      mainButton: "Get Busniess Report",
+      images: "report.png",
+      link: "/get-business-report",
+      dropDown: "side_drop",
+    },
     {
       mainButton: "Withdrawal Bonus",
       images: "withdrawal.png",

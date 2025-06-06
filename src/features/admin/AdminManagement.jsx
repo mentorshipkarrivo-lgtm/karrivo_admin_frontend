@@ -739,6 +739,29 @@ const AdminManagement = () => {
                                   "WITHDRAW MANAGEMENT"
                                 )}
                               />
+                              <label htmlFor="" style={{ marginRight: "2%" }}>
+                                User info
+                              </label>
+                              <input
+                                type="checkbox"
+                                value="USER INFO"
+                                checked={viewUser?.data?.permissions.includes(
+                                  "USER INFO"
+                                )}
+                              />
+
+                              {/* //SUPPORT */}
+
+                              <label htmlFor="" style={{ marginRight: "2%" }}>
+                                Support
+                              </label>
+                              <input
+                                type="checkbox"
+                                value="SUPPORT"
+                                checked={viewUser?.data?.permissions.includes(
+                                  "SUPPORT"
+                                )}
+                              />
                             </fieldset>
                           </div>
                         </div>
@@ -924,6 +947,28 @@ const AdminManagement = () => {
                               )}
                               onChange={handleCheckboxChange}
                             />
+
+                            <label htmlFor="" style={{ marginRight: "2%" }}>
+                              User info
+                            </label>
+                            <input
+                              type="checkbox"
+                              value="USER INFO"
+                              checked={formData.permissions.includes(
+                                "USER INFO"
+                              )}
+                              onChange={handleCheckboxChange}
+                            />
+
+                            <label htmlFor="" style={{ marginRight: "2%" }}>
+                              Support
+                            </label>
+                            <input
+                              type="checkbox"
+                              value="SUPPORT"
+                              checked={formData.permissions.includes("SUPPORT")}
+                              onChange={handleCheckboxChange}
+                            />
                           </fieldset>
                         </div>
                         {errors.permissions && (
@@ -1107,6 +1152,29 @@ const AdminManagement = () => {
                                 value="WITHDRAW MANAGEMENT"
                                 checked={formEditData.permissions.includes(
                                   "WITHDRAW MANAGEMENT"
+                                )}
+                                onChange={handleEditCheckboxChange}
+                              />
+
+                              <label htmlFor="" style={{ marginRight: "2%" }}>
+                                User info
+                              </label>
+                              <input
+                                type="checkbox"
+                                value="USER INFO"
+                                checked={formEditData.permissions.includes(
+                                  "USER INFO"
+                                )}
+                                onChange={handleEditCheckboxChange}
+                              />
+                              <label htmlFor="" style={{ marginRight: "2%" }}>
+                                Support
+                              </label>
+                              <input
+                                type="checkbox"
+                                value="SUPPORT"
+                                checked={formEditData.permissions.includes(
+                                  "SUPPORT"
                                 )}
                                 onChange={handleEditCheckboxChange}
                               />
