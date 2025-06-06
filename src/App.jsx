@@ -46,6 +46,9 @@ const App = () => {
   const arr3 = ["WITHDRAW MANAGEMENT", "KYC MANAGEMENT"];
   const isWithdrawal = permissions?.every((i) => arr3.includes(i));
 
+  const isUserInfo = permissions?.includes("USER INFO");
+  const isSupport = permissions?.includes("SUPPORT");
+
   return (
     <>
       <ToastContainer />
@@ -80,13 +83,14 @@ const App = () => {
             <Route path={"/legal-updation"} element={<LegalUpdation />} />
             <Route path={"/profile"} element={<Profile />} />
             <Route path={"/withdrawal"} element={<Withdrawal />} />
-            <Route path={"/support"} element={<Support />} />
-            <Route path={"/support-chart/:id"} element={<SupportChart />} />
+
             <Route path={"/buy-history"} element={<BuyHistory />} />
             <Route path={"/wallet-management"} element={<WalletManagement />} />
             <Route path={"/setting"} element={<Setting />} />
             <Route path={"/bonus-history"} element={<BonusHistory />} />
             <Route path={"/get-user-details"} element={<Userinfo />} />
+            <Route path={"/support"} element={<Support />} />
+            <Route path={"/support-chart/:id"} element={<SupportChart />} />
             <Route
               path={"/get-deleted-accounts"}
               element={<DeletedUsersTable />}
@@ -229,6 +233,31 @@ const App = () => {
             <Route path={"/buy-history"} element={<NoAccess />} />
             <Route path={"/setting"} element={<NoAccess />} />
             <Route path={"/bonus-history"} element={<NoAccess />} />
+          </Route>
+        )}
+
+        {permissions?.length > 0 && isSupport && isUserInfo && (
+          <Route element={<PrivateRoute />}>
+            <Route path={"/profile"} element={<NoAccess />} />
+            {/* <Route path={"/"} element={<KycApprove />} /> */}
+            <Route path={"/kyc-management"} element={<NoAccess />} />
+            <Route path={"/wallet-management"} element={<NoAccess />} />
+            <Route path={"/withdrawal"} element={<NoAccess />} />
+            <Route path={"/total-user"} element={<NoAccess />} />
+            <Route path={"/total-admin"} element={<NoAccess />} />
+            <Route path={"/referral"} element={<NoAccess />} />
+            <Route path={"/ico-management"} element={<NoAccess />} />
+            <Route path={"/legal-updation"} element={<NoAccess />} />
+
+            <Route path={"/buy-history"} element={<NoAccess />} />
+            <Route path={"/setting"} element={<NoAccess />} />
+            <Route path={"/bonus-history"} element={<NoAccess />} />
+            <Route path={"/"} element={<Userinfo />} />
+            <Route path={"/support"} element={<Support />} />
+            <Route path={"/support-chart/:id"} element={<SupportChart />} />
+            <Route path={"/get-deleted-accounts"} element={<NoAccess />} />
+            <Route path={"/get-business-report"} element={<NoAccess />} />
+            <Route path={"/share-holders"} element={<NoAccess />} />
           </Route>
         )}
 
