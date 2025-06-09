@@ -2431,7 +2431,8 @@ function GetBusinessDetails() {
               Please fetch business data first to view analytics!!
             </h5>
             <p className="text-light small">
-              654 Use the form above to get business details for selected date range!!
+              Use the form above to get business details for selected date
+              range!!
             </p>
           </div>
         </div>
