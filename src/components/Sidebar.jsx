@@ -13,7 +13,7 @@ const Sidebar = () => {
       title: "Are you sure?",
       text: "You want to Logout from this Device!",
       icon: "warning",
-      showCancelButton: true, 
+      showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: " #eb660f",
       confirmButtonText: "Yes, logout!",
@@ -32,18 +32,7 @@ const Sidebar = () => {
       link: "/",
       dropDown: "side_drop",
     },
-    {
-      mainButton: "Busniess Analytics",
-      images: "report.png",
-      link: "/get-business-analytics",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Busniess Report",
-      images: "report.png",
-      link: "/get-business-report",
-      dropDown: "side_drop",
-    },
+
     {
       mainButton: "User Management",
       images: "my-team.png",
@@ -75,9 +64,15 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
-      mainButton: "Legal Updation",
-      images: "legal.png",
-      link: "/legal-updation",
+      mainButton: "Busniess Analytics",
+      images: "report.png",
+      link: "/get-business-analytics",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Busniess Report",
+      images: "report.png",
+      link: "/get-business-report",
       dropDown: "side_drop",
     },
     {
@@ -86,6 +81,31 @@ const Sidebar = () => {
       link: "/get-user-details",
       dropDown: "side_drop",
     },
+    {
+      mainButton: "Buy History",
+      images: "history.png",
+      link: "/buy-history",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Bonus Coins History",  
+      images: "bonuscoinhistory.png",
+      link: "/bonus-history",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Wallet Management",
+      images: "walleticon.png",
+      link: "/wallet-management",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Legal Updation",
+      images: "legal.png",
+      link: "/legal-updation",
+      dropDown: "side_drop",
+    },
+
     {
       mainButton: "Share Holders",
       images: "my-team.png",
@@ -98,24 +118,7 @@ const Sidebar = () => {
       link: "/withdrawal",
       dropDown: "side_drop",
     },
-    {
-      mainButton: "Buy History",
-      images: "history.png",
-      link: "/buy-history",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Bonus Coins History",
-      images: "bonuscoinhistory.png",
-      link: "/bonus-history",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Wallet Management",
-      images: "walleticon.png",
-      link: "/wallet-management",
-      dropDown: "side_drop",
-    },
+
     {
       mainButton: "Support",
       images: "support.png",
@@ -180,7 +183,7 @@ const Sidebar = () => {
             </Link>
           </div>
         </div>
-        
+
         <div className="sidebar_list_data">
           <div className="accordion accordion-flush" id="accordionFlushExample">
             {sidebarData.map((data, i) =>
