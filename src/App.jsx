@@ -32,7 +32,6 @@ import DeletedUsersTable from "./features/deleteAccountByAdmin/DeleteAccountByAd
 import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
 import GetBusinessReportFromTo from "./features/getBusinessReportFromTo/getBusinessReportFromTo";
 
-
 //app
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -243,28 +242,20 @@ const App = () => {
           </Route>
         )}
 
+        {permissions?.length > 0 && isSupport && (
+          <Route element={<PrivateRoute />}>
+            <Route path="/support" element={<Support />} />
+            <Route path="/support-chart/:id" element={<SupportChart />} />
+            <Route path="*" element={<NoAccess />} />
+          </Route>
+        )}
+
         {permissions?.length > 0 && isSupport && isUserInfo && (
           <Route element={<PrivateRoute />}>
-            <Route path={"/profile"} element={<NoAccess />} />
-            {/* <Route path={"/"} element={<KycApprove />} /> */}
-            <Route path={"/kyc-management"} element={<NoAccess />} />
-            <Route path={"/wallet-management"} element={<NoAccess />} />
-            <Route path={"/withdrawal"} element={<NoAccess />} />
-            <Route path={"/total-user"} element={<NoAccess />} />
-            <Route path={"/total-admin"} element={<NoAccess />} />
-            <Route path={"/referral"} element={<NoAccess />} />
-            <Route path={"/ico-management"} element={<NoAccess />} />
-            <Route path={"/legal-updation"} element={<NoAccess />} />
-
-            <Route path={"/buy-history"} element={<NoAccess />} />
-            <Route path={"/setting"} element={<NoAccess />} />
-            <Route path={"/bonus-history"} element={<NoAccess />} />
-            <Route path={"/"} element={<Userinfo />} />
-            <Route path={"/support"} element={<Support />} />
-            <Route path={"/support-chart/:id"} element={<SupportChart />} />
-            <Route path={"/get-deleted-accounts"} element={<NoAccess />} />
-            <Route path={"/get-business-report"} element={<NoAccess />} />
-            <Route path={"/share-holders"} element={<NoAccess />} />
+            <Route path="/get-user-details" element={<Userinfo />} />
+            <Route path="/support" element={<Support />} />
+            <Route path="/support-chart/:id" element={<SupportChart />} />
+            <Route path="*" element={<NoAccess />} />
           </Route>
         )}
 

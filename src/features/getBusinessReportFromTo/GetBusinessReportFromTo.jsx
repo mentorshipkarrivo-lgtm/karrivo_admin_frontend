@@ -368,7 +368,7 @@ const GetBusinessReportFromTo = () => {
                 transaction.transactionAmount || "N/A",
                 transaction.paymentMode || "UPI",
                 transaction.transactionDate
-                  ? formatDate(transaction.transactionDate)
+                  ? formatDate(transaction.createdOn)
                   : "N/A",
                 transIndex === 0 ? referral.transactionCount.toString() : "", // Transaction count only for first transaction
               ]);
@@ -562,13 +562,14 @@ const GetBusinessReportFromTo = () => {
       minimumFractionDigits: 0,
     }).format(amount);
   };
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-  };
+const formatDate = (dateString) => {
+  // Extract just the date part before 'T'
+  const datePart = dateString.split('T')[0];
+  const [year, month, day] = datePart.split('-');
+  
+  return `${day}/${month}/${year}`;
+};
+
 
   // Helper function to check if business data should be displayed
   const shouldShowBusinessSummary = (user) => {
