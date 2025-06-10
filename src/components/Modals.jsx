@@ -14,7 +14,7 @@ const Modals = ({
   show,
   setShow,
   deleteModal,
-  deleteModal3,
+  deleteModal3,    
   setDeleteModal,
   setDeleteModal2,
   deleteModal1,
