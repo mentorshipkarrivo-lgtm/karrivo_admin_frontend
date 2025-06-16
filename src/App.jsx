@@ -31,6 +31,7 @@ import GetBusniessDetails from "./features/getBusniessAnalyticsDetails/GetBusnie
 import DeletedUsersTable from "./features/deleteAccountByAdmin/DeleteAccountByAdmin";
 import ShareHolderDashboard from "./features/shareHolders/ShareHolder";
 import GetBusinessReportFromTo from "./features/getBusinessReportFromTo/getBusinessReportFromTo";
+import ExludeUsers from "./features/excludeUsers/ExludeUsers";
 
 //app
 const App = () => {
@@ -106,6 +107,7 @@ const App = () => {
               element={<GetBusinessReportFromTo />}
             />
             <Route path={"/share-holders"} element={<ShareHolderDashboard />} />
+            <Route path={"/exclude-users"} element={<ExludeUsers />} />
           </Route>
         )}
         {isKycS && isWalletS && !isWithdrawalS && (

@@ -52,6 +52,13 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
+      mainButton: "Exclude Users",
+      images: "referral.png",
+      link: "/exclude-users",
+      dropDown: "side_drop",
+    },
+
+    {
       mainButton: "ICO Management",
       images: "ico.png",
       link: "/ico-management",
@@ -88,7 +95,7 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
-      mainButton: "Bonus Coins History",  
+      mainButton: "Bonus Coins History",
       images: "bonuscoinhistory.png",
       link: "/bonus-history",
       dropDown: "side_drop",

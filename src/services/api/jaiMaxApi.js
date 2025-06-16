@@ -72,6 +72,7 @@ export const apiSlice = createApi({
     "getTdetails",
     "ShareHolders",
     "updateDetails",
+    "ExcludedUsers",
   ],
   endpoints: (builder) => ({}),
 });
