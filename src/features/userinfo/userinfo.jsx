@@ -2183,6 +2183,7 @@ function buildReferralMap(users) {
 
 const Userinfo = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(""); // ADD THIS
   const [referrals, setReferrals] = useState([]);
   const [refType, setRefType] = useState("");
   const [loading, setLoading] = useState(false);
@@ -2194,16 +2195,27 @@ const Userinfo = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [modalType, setModalType] = useState(""); // "purchases" or "investments"
 
-  // Use the API query hook with skip parameter
+  // ADD DEBOUNCING EFFECT
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // Trim spaces and convert to uppercase
+      const processedTerm = searchTerm.trim().toUpperCase();
+      setDebouncedSearchTerm(processedTerm);
+    }, 500); // 500ms delay
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // UPDATED API query hook to use debouncedSearchTerm
   const {
     data: userData,
     error,
     isLoading,
     refetch,
-  } = useGetUserInfoQuery(searchTerm, {
-    skip: !searchTerm.trim(),
+  } = useGetUserInfoQuery(debouncedSearchTerm, {
+    skip: !debouncedSearchTerm.trim(),
   });
-  // console.log(userData?.data?.user, "userData");
+
   const clearAll = () => {
     setReferrals([]);
     setUserDetails(null);
@@ -2224,55 +2236,58 @@ const Userinfo = () => {
     setShowModal(true);
   };
 
+  // ADD INPUT CHANGE HANDLER
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // UPDATED BUTTON HANDLERS
   const handleDirectSearch = () => {
-    if (!searchTerm.trim()) {
+    const processedTerm = searchTerm.trim().toUpperCase();
+    if (!processedTerm) {
       toast("Please enter a Reference ID");
       return;
     }
 
     setLoading(true);
     clearAll();
+    setRefType("direct");
 
-    // Trigger API call with current searchTerm
-    refetch().then(() => {
-      setRefType("direct");
-      setLoading(false);
-    });
+    // Update debounced term immediately for this search
+    setDebouncedSearchTerm(processedTerm);
   };
 
   const handleChainSearch = () => {
-    if (!searchTerm.trim()) {
+    const processedTerm = searchTerm.trim().toUpperCase();
+    if (!processedTerm) {
       toast("Please enter a Reference ID");
       return;
     }
 
     setLoading(true);
     clearAll();
+    setRefType("chain");
 
-    // Trigger API call with current searchTerm
-    refetch().then(() => {
-      setRefType("chain");
-      setLoading(false);
-    });
+    // Update debounced term immediately for this search
+    setDebouncedSearchTerm(processedTerm);
   };
 
   const handleShowUserDetails = () => {
-    if (!searchTerm.trim()) {
+    const processedTerm = searchTerm.trim().toUpperCase();
+    if (!processedTerm) {
       toast("Please enter a Reference ID");
       return;
     }
 
     setLoading(true);
     clearAll();
+    setRefType(""); // Keep empty for user details
 
-    // Refresh data from API
-    refetch().then(() => {
-      // User details will be updated from the useEffect
-      setLoading(false);
-    });
+    // Update debounced term immediately for this search
+    setDebouncedSearchTerm(processedTerm);
   };
 
-  // Handle API response - process data when it changes
+  // UPDATED useEffect with better loading management
   useEffect(() => {
     if (userData) {
       // Check for token expiration error
@@ -2281,8 +2296,7 @@ const Userinfo = () => {
         userData.message?.includes("Token expired")
       ) {
         toast("Session expired. Please login again.");
-        // Redirect to login page
-        // window.location.href = "/login";
+        setLoading(false); // ADD THIS
         return;
       }
 
@@ -2331,9 +2345,28 @@ const Userinfo = () => {
             toast("User not found!");
           }
         }
+      } else {
+        toast("Failed to fetch user data"); // ADD THIS
       }
+
+      setLoading(false); // ADD THIS - always stop loading when data processing is done
     }
   }, [userData, refType]);
+
+  // ADD ERROR HANDLING
+  useEffect(() => {
+    if (error) {
+      toast("Error fetching user data");
+      setLoading(false);
+    }
+  }, [error]);
+
+  // ADD LOADING STATE SYNC
+  useEffect(() => {
+    if (isLoading && debouncedSearchTerm) {
+      setLoading(true);
+    }
+  }, [isLoading, debouncedSearchTerm]);
 
   // Function to export data to PDF
   const exportToPDF = () => {
@@ -2577,16 +2610,6 @@ const Userinfo = () => {
     // User basic information
     doc.setFontSize(11);
     doc.setFont("helvetica", "normal");
-
-    // const userInfo = [
-    //   ["Name", user.name],
-    //   ["Username", user.username],
-    //   ["Phone", `${user.phone}`],
-    //   ["Email", user.email],
-    //   ["Referral Bonus", user.referenceInr],
-    //   ["Total Investment", userInvestmentTotal.toFixed(2)],
-    //   ["Total JAIMAX Tokens", userTokensTotal.toFixed(2)],
-    // ];
 
     const userInfo = [
       ["Name", user.name],

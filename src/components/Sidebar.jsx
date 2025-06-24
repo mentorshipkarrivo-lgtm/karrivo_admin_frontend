@@ -83,6 +83,12 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
+      mainButton: "Reports",
+      images: "report.png",
+      link: "/get-reports",
+      dropDown: "side_drop",
+    },
+    {
       mainButton: "User Info",
       images: "usericon.png",
       link: "/get-user-details",

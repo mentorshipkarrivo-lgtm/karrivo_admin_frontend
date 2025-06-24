@@ -1,20 +1,3 @@
-// import { apiSlice } from "../../services/api/jaiMaxApi";
-
-// export const userBusinessRefsApiSlice = apiSlice.injectEndpoints({
-//   endpoints: (builder) => ({
-//     getUserBusinessDirectRefs: builder.mutation({
-//       query: (username) => ({
-//         url: `/Admin/user-business-directrefs`,
-//         method: "POST",
-//         body: { username },
-//       }),
-//     }),
-//   }),
-// });
-
-// export const { useGetUserBusinessDirectRefsMutation } =
-//   userBusinessRefsApiSlice;
-
 import { apiSlice } from "../../services/api/jaiMaxApi";
 
 export const userBusinessRefsApiSlice = apiSlice.injectEndpoints({
@@ -45,10 +28,19 @@ export const userBusinessRefsApiSlice = apiSlice.injectEndpoints({
         },
       }),
     }),
+    // Mutation to get detailed report excluding direct and chain users
+    getDetailedDirectChainUsersBusiness: builder.mutation({
+      query: (payload) => ({
+        url: `/Admin/get-detialed-direct-chain-users-business`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetUserBusinessDirectRefsMutation,
   useGetUserBusinessRefsExcludingMutation,
+  useGetDetailedDirectChainUsersBusinessMutation,
 } = userBusinessRefsApiSlice;

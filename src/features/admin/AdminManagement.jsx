@@ -245,7 +245,7 @@ const AdminManagement = () => {
       const res = await sendUser({
         name: formData.name,
         email: formData.email,
-        countryCode: +formData.countryCode,
+        countryCode: formData.countryCode,
         phone: Number(formData.mobile),
         password: formData.password,
         permissions: formData.permissions,
@@ -697,71 +697,305 @@ const AdminManagement = () => {
                           </div>
                         </div>
 
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-12 mb-3">
                           <div className="form__box">
-                            <label htmlFor="">Permissions</label>
-                            <fieldset>
-                              <label
-                                htmlFor=""
-                                className="ml-4"
-                                style={{ marginRight: "2%" }}
-                              >
-                                KYC
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="KYC MANAGEMENT"
-                                checked={viewUser?.data?.permissions.includes(
-                                  "KYC MANAGEMENT"
-                                )}
-                                style={{ marginRight: "5%" }}
-                              />
+                            <label
+                              htmlFor=""
+                              className="form-label fw-semibold mb-3"
+                            >
+                              Permissions
+                            </label>
+                            <fieldset className="border-0 p-0">
+                              <div className="row g-3">
+                                <div className="col-lg-6 col-md-12">
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      KYC
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="KYC MANAGEMENT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "KYC MANAGEMENT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Wallet
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="WALLET MANAGEMENT"
-                                checked={viewUser?.data?.permissions.includes(
-                                  "WALLET MANAGEMENT"
-                                )}
-                                style={{ marginRight: "5%" }}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Reports
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="REPORTS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "REPORTS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Withdrawal Bonus
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="WITHDRAW MANAGEMENT"
-                                checked={viewUser?.data?.permissions.includes(
-                                  "WITHDRAW MANAGEMENT"
-                                )}
-                              />
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                User info
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="USER INFO"
-                                checked={viewUser?.data?.permissions.includes(
-                                  "USER INFO"
-                                )}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Wallet
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="WALLET MANAGEMENT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "WALLET MANAGEMENT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              {/* //SUPPORT */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Withdrawal
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="WITHDRAW MANAGEMENT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "WITHDRAW MANAGEMENT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Support
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="SUPPORT"
-                                checked={viewUser?.data?.permissions.includes(
-                                  "SUPPORT"
-                                )}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      User Info
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="USER INFO"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "USER INFO"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Support
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SUPPORT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "SUPPORT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Home Access
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="DASHBOARD"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "DASHBOARD"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Total User
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="USER MANAGEMENT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "USER MANAGEMENT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Referral
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="REFERRAL"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "REFERRAL"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      ICO Management
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ICO_MANAGEMENT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "ICO_MANAGEMENT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="col-lg-6 col-md-12">
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Exclude Users
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="EXCLUDE_USERS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "EXCLUDE_USERS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Legal Update
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="LEGAL_UPDATION"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "LEGAL_UPDATION"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Buy History
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="BUY_HISTORY"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "BUY_HISTORY"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Setting
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SETTING"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "SETTING"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Bonus History
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SUPER BONUS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "SUPER BONUS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Deleted Accounts
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="DELETE ACCOUNTS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "DELETE ACCOUNTS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Business Analytics
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="GET_BUSINESS_ANALYTICS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "GET_BUSINESS_ANALYTICS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Business Report
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="BUSINESS REPORT"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "BUSINESS REPORT"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Share Holders
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SHARE_HOLDERS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "SHARE_HOLDERS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </fieldset>
                           </div>
                         </div>
@@ -906,69 +1140,303 @@ const AdminManagement = () => {
                           <div className="error_cls">{errors.mobile}</div>
                         )}
                       </div>
-                      <div className="col-md-6 mb-3">
+                      <div className="col-md-12 mb-3">
                         <div className="form__box">
-                          <label htmlFor="">Permissions</label>
-                          <fieldset>
-                            <label htmlFor="" style={{ marginRight: "2%" }}>
-                              KYC
-                            </label>
-                            <input
-                              type="checkbox"
-                              value="KYC MANAGEMENT"
-                              checked={formData.permissions.includes(
-                                "KYC MANAGEMENT"
-                              )}
-                              onChange={handleCheckboxChange}
-                              style={{ marginRight: "5%" }}
-                            />
+                          <label
+                            htmlFor=""
+                            className="form-label fw-semibold mb-3"
+                          >
+                            Permissions
+                          </label>
+                          <fieldset className="border-0 p-0">
+                            <div className="row g-3">
+                              <div className="col-lg-6 col-md-12">
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">KYC</label>
+                                  <input
+                                    type="checkbox"
+                                    value="KYC MANAGEMENT"
+                                    checked={formData.permissions.includes(
+                                      "KYC MANAGEMENT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
 
-                            <label htmlFor="" style={{ marginRight: "2%" }}>
-                              Wallet
-                            </label>
-                            <input
-                              type="checkbox"
-                              value="WALLET MANAGEMENT"
-                              checked={formData.permissions.includes(
-                                "WALLET MANAGEMENT"
-                              )}
-                              onChange={handleCheckboxChange}
-                              style={{ marginRight: "5%" }}
-                            />
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Reports
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="REPORTS"
+                                    checked={formData.permissions.includes(
+                                      "REPORTS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
 
-                            <label htmlFor="" style={{ marginRight: "2%" }}>
-                              Withdrawal Bonus
-                            </label>
-                            <input
-                              type="checkbox"
-                              value="WITHDRAW MANAGEMENT"
-                              checked={formData.permissions.includes(
-                                "WITHDRAW MANAGEMENT"
-                              )}
-                              onChange={handleCheckboxChange}
-                            />
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Wallet
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="WALLET MANAGEMENT"
+                                    checked={formData.permissions.includes(
+                                      "WALLET MANAGEMENT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
 
-                            <label htmlFor="" style={{ marginRight: "2%" }}>
-                              User info
-                            </label>
-                            <input
-                              type="checkbox"
-                              value="USER INFO"
-                              checked={formData.permissions.includes(
-                                "USER INFO"
-                              )}
-                              onChange={handleCheckboxChange}
-                            />
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Withdrawal
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="WITHDRAW MANAGEMENT"
+                                    checked={formData.permissions.includes(
+                                      "WITHDRAW MANAGEMENT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
 
-                            <label htmlFor="" style={{ marginRight: "2%" }}>
-                              Support
-                            </label>
-                            <input
-                              type="checkbox"
-                              value="SUPPORT"
-                              checked={formData.permissions.includes("SUPPORT")}
-                              onChange={handleCheckboxChange}
-                            />
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    User Info
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="USER INFO"
+                                    checked={formData.permissions.includes(
+                                      "USER INFO"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Support
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="SUPPORT"
+                                    checked={formData.permissions.includes(
+                                      "SUPPORT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Home Access
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="DASHBOARD"
+                                    checked={formData.permissions.includes(
+                                      "DASHBOARD"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Total User
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="USER MANAGEMENT"
+                                    checked={formData.permissions.includes(
+                                      "USER MANAGEMENT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Referral
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="REFERRAL"
+                                    checked={formData.permissions.includes(
+                                      "REFERRAL"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    ICO Management
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="ICO_MANAGEMENT"
+                                    checked={formData.permissions.includes(
+                                      "ICO_MANAGEMENT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+                              </div>
+
+                              <div className="col-lg-6 col-md-12">
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Exclude Users
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="EXCLUDE_USERS"
+                                    checked={formData.permissions.includes(
+                                      "EXCLUDE_USERS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Legal Update
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="LEGAL_UPDATION"
+                                    checked={formData.permissions.includes(
+                                      "LEGAL_UPDATION"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Buy History
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="BUY_HISTORY"
+                                    checked={formData.permissions.includes(
+                                      "BUY_HISTORY"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Setting
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="SETTING"
+                                    checked={formData.permissions.includes(
+                                      "SETTING"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Bonus History
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="SUPER BONUS"
+                                    checked={formData.permissions.includes(
+                                      "SUPER BONUS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Deleted Accounts
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="DELETE ACCOUNTS"
+                                    checked={formData.permissions.includes(
+                                      "DELETE ACCOUNTS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Business Analytics
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="GET_BUSINESS_ANALYTICS"
+                                    checked={formData.permissions.includes(
+                                      "GET_BUSINESS_ANALYTICS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Business Report
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="BUSINESS REPORT"
+                                    checked={formData.permissions.includes(
+                                      "BUSINESS REPORT"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Share Holders
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="SHARE_HOLDERS"
+                                    checked={formData.permissions.includes(
+                                      "SHARE_HOLDERS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+                              </div>
+                            </div>
                           </fieldset>
                         </div>
                         {errors.permissions && (
@@ -1110,74 +1578,304 @@ const AdminManagement = () => {
                             <div className="error_cls">{errorsT.mobile}</div>
                           )}
                         </div>
-                        <div className="col-md-6 mb-3">
+                        <div className="col-md-12 mb-3">
                           <div className="form__box">
-                            <label htmlFor="">Permissions</label>
-                            <fieldset>
-                              <label
-                                htmlFor=""
-                                className="ml-4"
-                                style={{ marginRight: "2%" }}
-                              >
-                                KYC
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="KYC MANAGEMENT"
-                                checked={formEditData?.permissions.includes(
-                                  "KYC MANAGEMENT"
-                                )}
-                                onChange={handleEditCheckboxChange}
-                                style={{ marginRight: "5%" }}
-                              />
+                            <label
+                              htmlFor=""
+                              className="form-label fw-semibold mb-3"
+                            >
+                              Permissions
+                            </label>
+                            <fieldset className="border-0 p-0">
+                              <div className="row g-3">
+                                <div className="col-lg-6 col-md-12">
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      KYC
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="KYC MANAGEMENT"
+                                      checked={formEditData?.permissions.includes(
+                                        "KYC MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                   <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Reports
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="REPORTS"
+                                      checked={formEditData?.permissions.includes(
+                                        "REPORTS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Wallet
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="WALLET MANAGEMENT"
-                                checked={formEditData?.permissions.includes(
-                                  "WALLET MANAGEMENT"
-                                )}
-                                onChange={handleEditCheckboxChange}
-                                style={{ marginRight: "5%" }}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Wallet
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="WALLET MANAGEMENT"
+                                      checked={formEditData?.permissions.includes(
+                                        "WALLET MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Withdrawal Bonus
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="WITHDRAW MANAGEMENT"
-                                checked={formEditData.permissions.includes(
-                                  "WITHDRAW MANAGEMENT"
-                                )}
-                                onChange={handleEditCheckboxChange}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Withdrawal
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="WITHDRAW MANAGEMENT"
+                                      checked={formEditData.permissions.includes(
+                                        "WITHDRAW MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
 
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                User info
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="USER INFO"
-                                checked={formEditData.permissions.includes(
-                                  "USER INFO"
-                                )}
-                                onChange={handleEditCheckboxChange}
-                              />
-                              <label htmlFor="" style={{ marginRight: "2%" }}>
-                                Support
-                              </label>
-                              <input
-                                type="checkbox"
-                                value="SUPPORT"
-                                checked={formEditData.permissions.includes(
-                                  "SUPPORT"
-                                )}
-                                onChange={handleEditCheckboxChange}
-                              />
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      User Info
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="USER INFO"
+                                      checked={formEditData.permissions.includes(
+                                        "USER INFO"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Support
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SUPPORT"
+                                      checked={formEditData.permissions.includes(
+                                        "SUPPORT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Home Access
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="DASHBOARD"
+                                      checked={formEditData.permissions.includes(
+                                        "DASHBOARD"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Total User
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="USER MANAGEMENT"
+                                      checked={formEditData.permissions.includes(
+                                        "USER MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Referral
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="REFERRAL"
+                                      checked={formEditData.permissions.includes(
+                                        "REFERRAL"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      ICO Management
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ICO_MANAGEMENT"
+                                      checked={formEditData.permissions.includes(
+                                        "ICO_MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="col-lg-6 col-md-12">
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Exclude Users
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="EXCLUDE_USERS"
+                                      checked={formEditData.permissions.includes(
+                                        "EXCLUDE_USERS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Legal Update
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="LEGAL_UPDATION"
+                                      checked={formEditData.permissions.includes(
+                                        "LEGAL_UPDATION"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Buy History
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="BUY_HISTORY"
+                                      checked={formEditData.permissions.includes(
+                                        "BUY_HISTORY"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Setting
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SETTING"
+                                      checked={formEditData.permissions.includes(
+                                        "SETTING"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Bonus History
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SUPER BONUS"
+                                      checked={formEditData.permissions.includes(
+                                        "SUPER BONUS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Deleted Accounts
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="DELETE ACCOUNTS"
+                                      checked={formEditData.permissions.includes(
+                                        "DELETE ACCOUNTS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Business Analytics
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="GET_BUSINESS_ANALYTICS"
+                                      checked={formEditData.permissions.includes(
+                                        "GET_BUSINESS_ANALYTICS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Business Report
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="BUSINESS REPORT"
+                                      checked={formEditData.permissions.includes(
+                                        "BUSINESS REPORT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Share Holders
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="SHARE_HOLDERS"
+                                      checked={formEditData.permissions.includes(
+                                        "SHARE_HOLDERS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
                             </fieldset>
                           </div>
                           {errorsT.permissions && (
