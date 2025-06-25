@@ -9,15 +9,34 @@ export const marketingReportsApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       })
     }),
-    getUsersWithLessThanTenDirectRefs: builder.query({
+    // Split the 1-5 range into two separate endpoints
+    getUsersWithOneToTwoDirectRefs: builder.query({
       query: () => ({
-        url: `/Admin/users/direct-refs/less-than-10`,
+        url: `/Admin/users/direct-refs/1-to-2`,
         method: 'GET',
       })
     }),
-    getUsersWithLessThan10AndGreaterThan25DirectRefs: builder.query({
+    getUsersWithThreeToFiveDirectRefs: builder.query({
       query: () => ({
-        url: `/Admin/users/direct-refs/less-than-25`,
+        url: `/Admin/users/direct-refs/3-to-5`,
+        method: 'GET',
+      })
+    }),
+    getUsersWithSixToNineDirectRefs: builder.query({
+      query: () => ({
+        url: `/Admin/users/direct-refs/6-to-9`,
+        method: 'GET',
+      })
+    }),
+    getUsersWithTenToTwentyFiveDirectRefs: builder.query({
+      query: () => ({
+        url: `/Admin/users/direct-refs/10-to-25`,
+        method: 'GET',
+      })
+    }),
+    getUsersWithTwentySixToHundredDirectRefs: builder.query({
+      query: () => ({
+        url: `/Admin/users/direct-refs/26-to-100`,
         method: 'GET',
       })
     })
@@ -26,6 +45,9 @@ export const marketingReportsApiSlice = apiSlice.injectEndpoints({
 
 export const { 
   useGetInactiveUsersQuery,
-  useGetUsersWithLessThanTenDirectRefsQuery,
-  useGetUsersWithLessThan10AndGreaterThan25DirectRefsQuery
+  useGetUsersWithOneToTwoDirectRefsQuery,
+  useGetUsersWithThreeToFiveDirectRefsQuery,
+  useGetUsersWithSixToNineDirectRefsQuery,
+  useGetUsersWithTenToTwentyFiveDirectRefsQuery,
+  useGetUsersWithTwentySixToHundredDirectRefsQuery
 } = marketingReportsApiSlice;
