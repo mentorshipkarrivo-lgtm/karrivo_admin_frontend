@@ -51,12 +51,6 @@ const Sidebar = () => {
       link: "/referral",
       dropDown: "side_drop",
     },
-    {
-      mainButton: "Exclude Users",
-      images: "referral.png",
-      link: "/exclude-users",
-      dropDown: "side_drop",
-    },
 
     {
       mainButton: "ICO Management",
@@ -68,6 +62,51 @@ const Sidebar = () => {
       mainButton: "KYC Management",
       images: "kyc.png",
       link: "/kyc-management",
+      dropDown: "side_drop",
+    },
+
+    {
+      mainButton: "Wallet Management",
+      images: "walleticon.png",
+      link: "/wallet-management",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "All Transactions",
+      images: "new-wallet.png",
+      link: "/all-transactions",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "User Info",
+      images: "usericon.png",
+      link: "/get-user-details",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Buy History",
+      images: "history.png",
+      link: "/buy-history",
+      dropDown: "side_drop",
+    },
+
+    {
+      mainButton: "Bonus Coins History",
+      images: "bonuscoinhistory.png",
+      link: "/bonus-history",
+      dropDown: "side_drop",
+    },
+
+    {
+      mainButton: "Payment Gateways",
+      images: "payment_gateway.png",
+      link: "/payment-gateways",
+      dropDown: "side_drop",
+    },
+    {
+      mainButton: "Notifications",
+      images: "notifications.png",
+      link: "/notifications",
       dropDown: "side_drop",
     },
     {
@@ -88,34 +127,17 @@ const Sidebar = () => {
       link: "/get-reports",
       dropDown: "side_drop",
     },
+
     {
-      mainButton: "User Info",
-      images: "usericon.png",
-      link: "/get-user-details",
+      mainButton: "Withdrawal Bonus",
+      images: "withdrawal.png",
+      link: "/withdrawal",
       dropDown: "side_drop",
     },
     {
-      mainButton: "Buy History",
-      images: "history.png",
-      link: "/buy-history",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Bonus Coins History",
-      images: "bonuscoinhistory.png",
-      link: "/bonus-history",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Wallet Management",
-      images: "walleticon.png",
-      link: "/wallet-management",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Legal Updation",
-      images: "legal.png",
-      link: "/legal-updation",
+      mainButton: "Exclude Users",
+      images: "excludeuser.png",
+      link: "/exclude-users",
       dropDown: "side_drop",
     },
 
@@ -126,15 +148,15 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
-      mainButton: "Withdrawal Bonus",
-      images: "withdrawal.png",
-      link: "/withdrawal",
+      mainButton: "Legal Updation",
+      images: "newlegal.png",
+      link: "/legal-updation",
       dropDown: "side_drop",
     },
 
     {
       mainButton: "Support",
-      images: "support.png",
+      images: "newsupport.png",
       link: "/support",
       dropDown: "side_drop",
     },

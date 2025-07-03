@@ -1050,8 +1050,6 @@ const DetailedBusinessPerformanceReport = () => {
           )}
         </Modal.Footer>
       </Modal>
-
-      <ToastContainer />
     </section>
   );
 };

@@ -994,6 +994,54 @@ const AdminManagement = () => {
                                       className="form-check-input"
                                     />
                                   </div>
+
+                                  {/* NOTIFICATIONS */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Notifications
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="NOTIFICATIONS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "NOTIFICATIONS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  {/* all transactions */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      All transactions
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ALL_TRANSACTIONS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "ALL_TRANSACTIONS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  {/* PAYMENTGATEWAYS */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Paymentgateways
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="PAYMENTGATEWAYS"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "PAYMENTGATEWAYS"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </fieldset>
@@ -1435,6 +1483,53 @@ const AdminManagement = () => {
                                     className="form-check-input"
                                   />
                                 </div>
+                                {/* notifications */}
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Notifications
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="NOTIFICATIONS"
+                                    checked={formData.permissions.includes(
+                                      "NOTIFICATIONS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                {/* all transactions */}
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    All transactions
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="ALL_TRANSACTIONS"
+                                    checked={formData.permissions.includes(
+                                      "ALL_TRANSACTIONS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
+
+                                {/* payemntgateways */}
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Paymentgateways
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="PAYMENTGATEWAYS"
+                                    checked={formData.permissions.includes(
+                                      "PAYMENTGATEWAYS"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
                               </div>
                             </div>
                           </fieldset>
@@ -1603,7 +1698,7 @@ const AdminManagement = () => {
                                       className="form-check-input"
                                     />
                                   </div>
-                                   <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
                                     <label className="mb-0 fw-medium">
                                       Reports
                                     </label>
@@ -1874,6 +1969,54 @@ const AdminManagement = () => {
                                       className="form-check-input"
                                     />
                                   </div>
+
+                                  {/* notifications */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Notifications
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="NOTIFICATIONS"
+                                      checked={formEditData.permissions.includes(
+                                        "NOTIFICATIONS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  {/* all transactions */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      All transactions
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ALL_TRANSACTIONS"
+                                      checked={formEditData.permissions.includes(
+                                        "ALL_TRANSACTIONS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+
+                                  {/* paymentgateways */}
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Paymentgateways
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="PAYMENTGATEWAYS"
+                                      checked={formEditData.permissions.includes(
+                                        "PAYMENTGATEWAYS"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
                                 </div>
                               </div>
                             </fieldset>
@@ -1913,12 +2056,8 @@ const AdminManagement = () => {
               </div>
             </div>
           </div>
-
-          {/* Edit User Code Ends */}
         </section>
       </DashboardLayout>
-
-      {/* // <!-- Modal --> */}
     </>
   );
 };

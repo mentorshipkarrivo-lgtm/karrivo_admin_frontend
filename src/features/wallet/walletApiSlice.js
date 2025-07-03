@@ -2,16 +2,20 @@ import { apiSlice } from "../../services/api/jaiMaxApi";
 
 export const walletApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-  
-  
     transList: builder.query({
       query: (queryParams) => ({
-        url: `/wallet/transactions?${queryParams}`,
+        url: `/wallet/transactions-admin?${queryParams}`,
         method: "GET",
       }),
       providesTags: ["getTdetails"],
     }),
-
+    allTransList: builder.query({
+      query: (queryParams) => ({
+        url: `/wallet/all-transactions?${queryParams}`,
+        method: "GET",
+      }),
+      providesTags: ["getTdetails"],
+    }),
 
     transUpdate: builder.mutation({
       query: (credentials) => ({
@@ -42,17 +46,19 @@ export const walletApiSlice = apiSlice.injectEndpoints({
     }),
 
     // getkycDetails: builder.query({
-      
+
     //   query: (id) => ({
     //     url: `kyc/KycStatus/${id}`,
     //     method: "GET",
     //   }),
     // }),
-   
-    
-  
   }),
 });
 
-export const { useTransListQuery, useTransUpdateMutation, useGetkycDetailsQuery ,useTransAmountUpdateMutation } =
-  walletApiSlice;
+export const {
+  useTransListQuery,
+  useTransUpdateMutation,
+  useGetkycDetailsQuery,
+  useTransAmountUpdateMutation,
+  useAllTransListQuery,
+} = walletApiSlice;

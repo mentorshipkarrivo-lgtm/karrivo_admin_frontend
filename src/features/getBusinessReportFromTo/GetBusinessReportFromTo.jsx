@@ -1292,8 +1292,6 @@ const formatDate = (dateString) => {
           )}
         </Modal.Footer>
       </Modal>
-
-      <ToastContainer />
     </DashboardLayout>
   );
 };

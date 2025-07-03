@@ -4,6 +4,7 @@ import autoTable from "jspdf-autotable";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
+  useGetUsersWithZeroDirectRefsQuery,
   useGetUsersWithOneToTwoDirectRefsQuery,
   useGetUsersWithThreeToFiveDirectRefsQuery,
   useGetUsersWithSixToNineDirectRefsQuery,
@@ -13,6 +14,7 @@ import {
 } from "./reportsApiSlice";
 
 const SimpleBusinessReportPDF = () => {
+  const [pdfLoadingZero, setPdfLoadingZero] = useState(false);
   const [pdfLoading1to2, setPdfLoading1to2] = useState(false);
   const [pdfLoading3to5, setPdfLoading3to5] = useState(false);
   const [pdfLoading6to9, setPdfLoading6to9] = useState(false);
@@ -21,6 +23,7 @@ const SimpleBusinessReportPDF = () => {
   const [pdfLoadingInactive, setPdfLoadingInactive] = useState(false);
 
   // API queries
+  const { data: zeroDirectRefsData, isLoading: loadingZero } = useGetUsersWithZeroDirectRefsQuery();
   const { data: oneToTwoData, isLoading: loading1to2 } = useGetUsersWithOneToTwoDirectRefsQuery();
   const { data: threeToFiveData, isLoading: loading3to5 } = useGetUsersWithThreeToFiveDirectRefsQuery();
   const { data: sixToNineData, isLoading: loading6to9 } = useGetUsersWithSixToNineDirectRefsQuery();
@@ -81,8 +84,8 @@ const SimpleBusinessReportPDF = () => {
     doc.text("REPORT SUMMARY", 20, yPosition);
     yPosition += 10;
 
-    if (reportType === 'inactive') {
-      // Summary for inactive users
+    if (reportType === 'inactive' || reportType === 'zero') {
+      // Summary for inactive users and zero direct refs users
       const summaryData = [
         ["Metric", "Value"],
         ["Report Type", title || "N/A"],
@@ -160,6 +163,8 @@ const SimpleBusinessReportPDF = () => {
       
       if (reportType === 'inactive') {
         doc.text("DETAILED USER DATA", 20, yPosition);
+      } else if (reportType === 'zero') {
+        doc.text("USERS WITH 0 DIRECT REFERRALS", 20, yPosition);
       } else {
         doc.text(`USERS WITH ${category} DIRECT REFERRALS`, 20, yPosition);
       }
@@ -187,6 +192,29 @@ const SimpleBusinessReportPDF = () => {
           3: { cellWidth: 40 }, // Email
           4: { cellWidth: 30 }, // Phone
           5: { cellWidth: 30 }, // Referred By
+        };
+      } else if (reportType === 'zero') {
+        // Zero direct refs users table structure
+        tableColumns = ["S.No", "Username", "Name", "Email", "Phone", "Direct Refs", "Status"];
+        
+        tableRows = data.data.map((user, index) => [
+          (index + 1).toString(),
+          user.username || "N/A",
+          user.name || "N/A",
+          user.email || "N/A",
+          user.phone ? user.phone.toString() : "N/A",
+          user.directRefs?.toString() || "0",
+          user.isActive ? "Active" : "Inactive",
+        ]);
+
+        columnStyles = {
+          0: { cellWidth: 15 }, // S.No
+          1: { cellWidth: 30 }, // Username
+          2: { cellWidth: 35 }, // Name
+          3: { cellWidth: 35 }, // Email
+          4: { cellWidth: 25 }, // Phone
+          5: { cellWidth: 20 }, // Direct Refs
+          6: { cellWidth: 20 }, // Status
         };
       } else {
         // Referral users table structure
@@ -232,11 +260,11 @@ const SimpleBusinessReportPDF = () => {
         headStyles: {
           fillColor: [32, 147, 74],
           textColor: 255,
-          fontSize: reportType === 'inactive' ? 9 : 8,
+          fontSize: (reportType === 'inactive' || reportType === 'zero') ? 9 : 8,
           fontStyle: "bold",
         },
         styles: {
-          fontSize: reportType === 'inactive' ? 8 : 7,
+          fontSize: (reportType === 'inactive' || reportType === 'zero') ? 8 : 7,
           cellPadding: 2,
         },
         columnStyles: columnStyles,
@@ -255,8 +283,8 @@ const SimpleBusinessReportPDF = () => {
       yPosition = doc.lastAutoTable.finalY + 15;
     }
 
-    // Insights Section for inactive users
-    if (reportType === 'inactive' && data?.data?.length > 0) {
+    // Insights Section for inactive and zero direct refs users
+    if ((reportType === 'inactive' || reportType === 'zero') && data?.data?.length > 0) {
       checkAddPage(20);
 
       doc.setFontSize(14);
@@ -267,13 +295,25 @@ const SimpleBusinessReportPDF = () => {
       doc.setFontSize(10);
       doc.setTextColor(0, 0, 0);
 
-      const insights = [
-        `• Total inactive users identified: ${data.data.length}`,
-        `• These users may require re-engagement campaigns`,
-        `• Consider targeted marketing strategies to reactivate these users`,
-        `• Analyze user behavior patterns to understand inactivity reasons`,
-        `• Implement automated email sequences for user re-activation`,
-      ];
+      let insights = [];
+      
+      if (reportType === 'inactive') {
+        insights = [
+          `• Total inactive users identified: ${data.data.length}`,
+          `• These users may require re-engagement campaigns`,
+          `• Consider targeted marketing strategies to reactivate these users`,
+          `• Analyze user behavior patterns to understand inactivity reasons`,
+          `• Implement automated email sequences for user re-activation`,
+        ];
+      } else if (reportType === 'zero') {
+        insights = [
+          `• Total active users with 0 direct referrals: ${data.data.length}`,
+          `• These users are active but haven't made any referrals yet`,
+          `• Consider providing referral incentives and training to these users`,
+          `• Implement onboarding programs to educate about referral benefits`,
+          `• Target these users with referral tutorials and success stories`,
+        ];
+      }
 
       insights.forEach((insight) => {
         checkAddPage(8);
@@ -295,6 +335,13 @@ const SimpleBusinessReportPDF = () => {
         category = "INACTIVE";
         setLoading = setPdfLoadingInactive;
         filename = `inactive-users-report-${new Date().toISOString().split("T")[0]}.pdf`;
+        break;
+      case 'zero':
+        data = zeroDirectRefsData;
+        title = "Users with 0 Direct Referrals Report";
+        category = "0";
+        setLoading = setPdfLoadingZero;
+        filename = `users-0-direct-refs-report-${new Date().toISOString().split("T")[0]}.pdf`;
         break;
       case '1to2':
         data = oneToTwoData;
@@ -436,6 +483,17 @@ const SimpleBusinessReportPDF = () => {
               pdfLoading={pdfLoadingInactive}
               bgColor="#dc3545"
               textColor="text-danger"
+            />
+
+            {/* Zero Direct Referrals Report */}
+            <ReportCard
+              title="0 Direct Referrals"
+              count={zeroDirectRefsData?.data?.length}
+              isLoading={loadingZero}
+              reportType="zero"
+              pdfLoading={pdfLoadingZero}
+              bgColor="#6c757d"
+              textColor="text-secondary"
             />
 
             <ReportCard

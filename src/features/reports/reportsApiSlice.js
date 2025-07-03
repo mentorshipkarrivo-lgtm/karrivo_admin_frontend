@@ -9,6 +9,12 @@ export const marketingReportsApiSlice = apiSlice.injectEndpoints({
         method: 'GET',
       })
     }),
+    getUsersWithZeroDirectRefs: builder.query({
+      query: () => ({
+        url: `/Admin/zero-direct-refs-users`,
+        method: 'GET',
+      })
+    }),
     // Split the 1-5 range into two separate endpoints
     getUsersWithOneToTwoDirectRefs: builder.query({
       query: () => ({
@@ -45,6 +51,7 @@ export const marketingReportsApiSlice = apiSlice.injectEndpoints({
 
 export const { 
   useGetInactiveUsersQuery,
+  useGetUsersWithZeroDirectRefsQuery,
   useGetUsersWithOneToTwoDirectRefsQuery,
   useGetUsersWithThreeToFiveDirectRefsQuery,
   useGetUsersWithSixToNineDirectRefsQuery,
