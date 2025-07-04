@@ -110,6 +110,12 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
+      mainButton: "Zoom Meeting",
+      images: "meet.png",
+      link: "/zoom-meeting",
+      dropDown: "side_drop",
+    },
+    {
       mainButton: "Busniess Analytics",
       images: "report.png",
       link: "/get-business-analytics",

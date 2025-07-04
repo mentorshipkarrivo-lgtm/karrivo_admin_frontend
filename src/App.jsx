@@ -31,6 +31,7 @@ import ExludeUsers from "./features/excludeUsers/ExludeUsers";
 import MarketingReportsDownload from "./features/reports/Reports";
 import Notifications from "./features/notifications/BulkNotificationManagement";
 import AllTransactions from "./pages/AllTransactions";
+import ZoomMetting from "./features/zoom/ZoomMetting";
 
 const App = () => {
   const userDataString = localStorage.getItem("userData");
@@ -82,6 +83,7 @@ const App = () => {
             <Route path="/share-holders" element={<ShareHolderDashboard />} />
             <Route path="/exclude-users" element={<ExludeUsers />} />
             <Route path="/get-reports" element={<MarketingReportsDownload />} />
+            <Route path="/zoom-meeting" element={<ZoomMetting />} />
           </Route>
           <Route element={<PublicRoute />}>
             <Route path="/login" element={<Login />} />
@@ -278,6 +280,12 @@ const App = () => {
               />
             ) : (
               <Route path="/get-reports" element={<NoAccess />} />
+            )}
+            {/* Zoom Meeting Permission */}
+            {permissions.includes("ZOOM_MEETING") ? (
+              <Route path="/zoom-meeting" element={<ZoomMetting />} />
+            ) : (
+              <Route path="/zoom-meeting" element={<NoAccess />} />
             )}
           </Route>
 

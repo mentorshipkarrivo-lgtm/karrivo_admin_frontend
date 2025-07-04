@@ -857,6 +857,20 @@ const AdminManagement = () => {
                                       className="form-check-input"
                                     />
                                   </div>
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Zoom Meeting
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ZOOM_MEETING"
+                                      checked={viewUser?.data?.permissions.includes(
+                                        "ZOOM_MEETING"
+                                      )}
+                                      readOnly
+                                      className="form-check-input"
+                                    />
+                                  </div>
                                 </div>
 
                                 <div className="col-lg-6 col-md-12">
@@ -1346,6 +1360,21 @@ const AdminManagement = () => {
                                     className="form-check-input"
                                   />
                                 </div>
+
+                                <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                  <label className="mb-0 fw-medium">
+                                    Zoom Meeting
+                                  </label>
+                                  <input
+                                    type="checkbox"
+                                    value="ZOOM_MEETING"
+                                    checked={formData.permissions.includes(
+                                      "ZOOM_MEETING"
+                                    )}
+                                    onChange={handleCheckboxChange}
+                                    className="form-check-input"
+                                  />
+                                </div>
                               </div>
 
                               <div className="col-lg-6 col-md-12">
@@ -1827,6 +1856,20 @@ const AdminManagement = () => {
                                       value="ICO_MANAGEMENT"
                                       checked={formEditData.permissions.includes(
                                         "ICO_MANAGEMENT"
+                                      )}
+                                      onChange={handleEditCheckboxChange}
+                                      className="form-check-input"
+                                    />
+                                  </div>
+                                  <div className="d-flex align-items-center justify-content-between mb-3 p-2 rounded">
+                                    <label className="mb-0 fw-medium">
+                                      Zoom Meeting
+                                    </label>
+                                    <input
+                                      type="checkbox"
+                                      value="ZOOM_MEETING"
+                                      checked={formEditData.permissions.includes(
+                                        "ZOOM_MEETING"
                                       )}
                                       onChange={handleEditCheckboxChange}
                                       className="form-check-input"
