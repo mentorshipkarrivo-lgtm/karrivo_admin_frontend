@@ -1,14 +1,11 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {
-  useKycUpdateMutation,
-  useGetkycDetailsQuery,
-} from "../features/kyc/kycApiSlice";
+
 import { toast } from "react-toastify";
-import { useSendTransactionMutation } from "../features/user/userApiSlice";
+// import { useSendTransactionMutation } from "../features/user/userApiSlice";
 import { MyContext } from "../features/auth/AuthContext";
 import { StateContext } from "../context/StateContext";
-import { useGetShareHoldersQuery } from "../features/shareHolders/shareHoldersApiSlice"; 
+// import { useGetUserQuery  } from "../features/shareHolders/shareHoldersApiSlice"; 
 
 const Modals = ({
   show,
@@ -36,7 +33,7 @@ const Modals = ({
 }) => {
   // const [amount, setAmount] = useState('');
   // const [transactionType, setTransactionType] = useState('');
-  const [sendTransaction] = useSendTransactionMutation();
+  // const [sendTransaction] = useGetUserQuery();
   // const [loading,setLoading] = useState("false");
   const { amount, setAmount, transactionType, setTransactionType } =
     useContext(StateContext);
@@ -44,7 +41,7 @@ const Modals = ({
   // console.log({id})
   let image_url = import.meta.env.VITE_IMAGE_URL;
 
-  const [approveKyc] = useKycUpdateMutation();
+  // const [approveKyc] = useKycUpdateMutation();
   const handleClose = () => setShow(false);
 
   const handleCheck1 = () => {

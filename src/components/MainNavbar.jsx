@@ -3,10 +3,10 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Swal from "sweetalert2";
-import { useUserDataQuery } from "../features/user/userApiSlice";
+import { useGetUserQuery  } from "../features/user/userApiSlice";
 const MainNavbar = () => {
   const { sidebarMenu, setSidebarMenu } = useContext(StateContext);
-  const { data: userData } = useUserDataQuery();
+  const { data: userData } = useGetUserQuery();
   const navigate = useNavigate();
   const handleLogout = () => {
     Swal.fire({

@@ -5,33 +5,33 @@ export const adminApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAdminUser: builder.query({
             query: (queryParams) => ({
-                url:`Admin/get-admin-users?${queryParams}`,
+                url:`admin/get-admin-users?${queryParams}`,
                 method: 'GET', 
             })     
         }),
         viewUser: builder.query({
             query: (userId) => ({
-                url:`Admin/viewUser/${userId}`,
+                url:`admin/viewUser/${userId}`,
                 method: 'GET', 
             }) 
         }),
         blockUser: builder.mutation({
             query: (credentials) => ({
-                url:'Admin/userBlock',
+                url:'admin/userBlock',
                 method: 'POST', 
                 body: credentials,
             }) 
         }),
         sendUser: builder.mutation({
             query: (data) => ({
-                url:'Admin/create-admin-user',
+                url:'admin/create-admin-user',
                 method: 'POST', 
                 body: data,
             }) 
         }),
         editUser: builder.mutation({
             query: (data) => ({
-                url:'Admin/edit-admin-user',
+                url:'admin/edit-admin-user',
                 method: 'POST', 
                 body: data,
             }) 

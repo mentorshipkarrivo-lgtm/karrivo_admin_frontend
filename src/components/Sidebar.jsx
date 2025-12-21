@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { StateContext } from "../context/StateContext";
 import Swal from "sweetalert2";
-import logo from "../../public/site_logo.png";
+import logo from "../../public/logo.jpg";
 
 const Sidebar = () => {
   const { sidebarMenu, setSidebarMenu } = useContext(StateContext);
@@ -34,39 +34,39 @@ const Sidebar = () => {
     },
 
     {
-      mainButton: "User Management",
+      mainButton: "Mentor Management",
       images: "my-team.png",
-      link: "/total-user",
+      link: "/mentor-management",
       dropDown: "side_drop",
     },
     {
-      mainButton: "Admin Users",
+      mainButton: "Mentees",
       images: "admin.png",
       link: "/total-admin",
       dropDown: "side_drop",
     },
     {
-      mainButton: "Referral",
+      mainButton: "Sessions & Bookings",
       images: "referral.png",
       link: "/referral",
       dropDown: "side_drop",
     },
 
     {
-      mainButton: "ICO Management",
+      mainButton: "Transactions ",
       images: "ico.png",
       link: "/ico-management",
       dropDown: "side_drop",
     },
     {
-      mainButton: "KYC Management",
+      mainButton: "Support",
       images: "kyc.png",
       link: "/kyc-management",
       dropDown: "side_drop",
     },
 
     {
-      mainButton: "Wallet Management",
+      mainButton: "Analytics",
       images: "walleticon.png",
       link: "/wallet-management",
       dropDown: "side_drop",
@@ -75,101 +75,6 @@ const Sidebar = () => {
       mainButton: "All Transactions",
       images: "new-wallet.png",
       link: "/all-transactions",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "User Info",
-      images: "usericon.png",
-      link: "/get-user-details",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Buy History",
-      images: "history.png",
-      link: "/buy-history",
-      dropDown: "side_drop",
-    },
-
-    {
-      mainButton: "Bonus Coins History",
-      images: "bonuscoinhistory.png",
-      link: "/bonus-history",
-      dropDown: "side_drop",
-    },
-
-    {
-      mainButton: "Payment Gateways",
-      images: "payment_gateway.png",
-      link: "/payment-gateways",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Notifications",
-      images: "notifications.png",
-      link: "/notifications",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Zoom Meeting",
-      images: "meet.png",
-      link: "/zoom-meeting",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Busniess Analytics",
-      images: "report.png",
-      link: "/get-business-analytics",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Busniess Report",
-      images: "report.png",
-      link: "/get-business-report",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Reports",
-      images: "report.png",
-      link: "/get-reports",
-      dropDown: "side_drop",
-    },
-
-    {
-      mainButton: "Withdrawal Bonus",
-      images: "withdrawal.png",
-      link: "/withdrawal",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Exclude Users",
-      images: "excludeuser.png",
-      link: "/exclude-users",
-      dropDown: "side_drop",
-    },
-
-    {
-      mainButton: "Share Holders",
-      images: "my-team.png",
-      link: "/share-holders",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Legal Updation",
-      images: "newlegal.png",
-      link: "/legal-updation",
-      dropDown: "side_drop",
-    },
-
-    {
-      mainButton: "Support",
-      images: "newsupport.png",
-      link: "/support",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Software Setting",
-      images: "setting.svg",
-      link: "/setting",
       dropDown: "side_drop",
     },
     {
@@ -190,9 +95,8 @@ const Sidebar = () => {
   return (
     <div>
       <div
-        className={`main_sidebar ${
-          sidebarMenu ? "main_sidebar_close" : "main_sidebar_open"
-        } `}
+        className={`main_sidebar ${sidebarMenu ? "main_sidebar_close" : "main_sidebar_open"
+          } `}
       >
         <div className="sidebar_image text-start d-flex flex-md-block align-items-center justify-content-between px-1 px-md-3 py-ms-3 pb-4">
           <Link to="/" className="text-decoration-none text-center">
@@ -211,7 +115,7 @@ const Sidebar = () => {
                   style={{ width: "48.021px" }}
                   className="img-fluid"
                 />{" "}
-                <h5 className="m-0 my-auto jaimax_head ">JAIMAX COIN</h5>
+                <h5 className="m-0 my-auto jaimax_head ">KARRIVO.IN</h5>
               </div>
             )}
           </Link>
