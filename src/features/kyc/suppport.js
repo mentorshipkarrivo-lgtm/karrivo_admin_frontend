@@ -8,7 +8,7 @@ export const supportTicketApiSlice = apiSlice.injectEndpoints({
        ============================ */
     getSupportTickets: builder.query({
       query: (queryParams = "") => ({
-        url: `/mentee/support/get-tickets?${queryParams}`,
+        url: `/mentee/support/get-all-tickets`,
         method: "GET",
       }),
       providesTags: ["SupportTickets"],

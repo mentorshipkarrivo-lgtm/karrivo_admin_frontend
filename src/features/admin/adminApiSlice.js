@@ -1,44 +1,74 @@
+// icoApiSlice.js
 import { apiSlice } from "../../services/api/jaiMaxApi";
 
-
-export const adminApiSlice = apiSlice.injectEndpoints({
+export const sessionBookingApiSlice = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getAdminUser: builder.query({
+        // Get all session bookings
+        getSessionBookings: builder.query({
             query: (queryParams) => ({
-                url:`admin/get-admin-users?${queryParams}`,
-                method: 'GET', 
-            })     
+                url: `Admin/get-session-bookings?${queryParams}`,
+                method: 'GET',
+            }),
+            providesTags: ['SessionBookings']
         }),
-        viewUser: builder.query({
-            query: (userId) => ({
-                url:`admin/viewUser/${userId}`,
-                method: 'GET', 
-            }) 
+
+        // Get single session booking by ID
+        viewSessionBooking: builder.query({
+            query: (bookingId) => ({
+                url: `Admin/view-session-booking/${bookingId}`,
+                method: 'GET',
+            }),
+            providesTags: (result, error, bookingId) => [
+                { type: 'SessionBookings', id: bookingId }
+            ]
         }),
-        blockUser: builder.mutation({
+
+        // Update session booking
+        updateSessionBooking: builder.mutation({
+            query: ({ bookingId, ...data }) => ({
+                url: `Admin/update-session-booking/${bookingId}`,
+                method: 'PUT',
+                body: data,
+            }),
+            invalidatesTags: ['SessionBookings']
+        }),
+
+        // Update session status
+        updateSessionStatus: builder.mutation({
             query: (credentials) => ({
-                url:'admin/userBlock',
-                method: 'POST', 
+                url: 'Admin/update-session-status',
+                method: 'POST',
                 body: credentials,
-            }) 
+            }),
+            invalidatesTags: ['SessionBookings']
         }),
-        sendUser: builder.mutation({
-            query: (data) => ({
-                url:'admin/create-admin-user',
-                method: 'POST', 
-                body: data,
-            }) 
+
+        // Update payment status
+        updatePaymentStatus: builder.mutation({
+            query: (credentials) => ({
+                url: 'Admin/update-payment-status',
+                method: 'POST',
+                body: credentials,
+            }),
+            invalidatesTags: ['SessionBookings']
         }),
-        editUser: builder.mutation({
-            query: (data) => ({
-                url:'admin/edit-admin-user',
-                method: 'POST', 
-                body: data,
-            }) 
+
+        // Delete session booking
+        deleteSessionBooking: builder.mutation({
+            query: (bookingId) => ({
+                url: `Admin/delete-session-booking/${bookingId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['SessionBookings']
         }),
     })
-})
+});
 
-
-export const { useGetAdminUserQuery , useViewUserQuery, useBlockUserMutation, useSendUserMutation, useEditUserMutation } = adminApiSlice;
-
+export const {
+    useGetSessionBookingsQuery,
+    useViewSessionBookingQuery,
+    useUpdateSessionBookingMutation,
+    useUpdateSessionStatusMutation,
+    useUpdatePaymentStatusMutation,
+    useDeleteSessionBookingMutation,
+} = sessionBookingApiSlice;

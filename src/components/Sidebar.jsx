@@ -59,9 +59,9 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
     {
-      mainButton: "Support",
+      mainButton: "MentorSupport",
       images: "kyc.png",
-      link: "/kyc-management",
+      link: "/mentor-Support",
       dropDown: "side_drop",
     },
 

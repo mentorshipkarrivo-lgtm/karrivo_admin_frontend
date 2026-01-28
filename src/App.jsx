@@ -323,12 +323,12 @@ import Referral from "./features/referral/Referral";
 import IcoManagement from "./features/ico/IcoManagement";
 import BuyHistory from "./features/buyHistory/BuyHistory";
 import Withdrawal from "./pages/Withdrawal";
-import Support from "./pages/Support";
-import KycApprove from "./pages/KycManagement";
+// import Support from "./pages/Support";
+// import KycApprove from "./pages/KycManagement";
 import LegalUpdation from "./pages/LegalUpdation";
 import Profile from "./pages/Profile";
 import WalletManagement from "./pages/WalletManagement";
-import SupportChart from "./pages/SupportChart";
+// import SupportChart from "./pages/SupportChart";
 import Login from "./features/auth/Login";
 import BonusHistory from "./features/bonusHistory/BonusHistory";
 import Setting from "./pages/Setting";
@@ -341,11 +341,14 @@ import GetBusinessReportFromTo from "./features/getBusinessReportFromTo/getBusin
 import ExludeUsers from "./features/excludeUsers/ExludeUsers";
 import MarketingReportsDownload from "./features/reports/Reports";
 import Notifications from "./features/notifications/BulkNotificationManagement";
-import AllTransactions from "./pages/AllTransactions";
+import AllTransactions from "./features/support/support";
 import ZoomMetting from "./features/zoom/ZoomMetting";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ResetPassword from "./features/resetpage/ResetPassword";
+import AllMentorSupportTickets from "./features/mentorSupport/mentorsupport";
+import SessionBookingManagement from "./features/ico/IcoManagement";
 
 const App = () => {
   return (
@@ -364,9 +367,12 @@ const App = () => {
         <Route path="/get-user-details" element={<Userinfo />} />
         <Route path="/get-deleted-accounts" element={<DeletedUsersTable />} />
         <Route path="/exclude-users" element={<ExludeUsers />} />
+        <Route path="/mentor-Support" element={<AllMentorSupportTickets />} />
+
+
 
         {/* Mentor / KYC / Legal */}
-        <Route path="/kyc-management" element={<KycApprove />} />
+        {/* <Route path="/kyc-management" element={<AllTransactions />} /> */}
         <Route path="/legal-updation" element={<LegalUpdation />} />
 
         {/* Finance */}
@@ -377,13 +383,13 @@ const App = () => {
         <Route path="/payment-gateways" element={<PaymentGatewayManagement />} />
 
         {/* ICO / Referral */}
-        <Route path="/ico-management" element={<IcoManagement />} />
+        <Route path="/ico-management" element={<SessionBookingManagement />} />
         <Route path="/referral" element={<Referral />} />
         <Route path="/buy-history" element={<BuyHistory />} />
 
         {/* Support */}
-        <Route path="/support" element={<Support />} />
-        <Route path="/support-chart/:id" element={<SupportChart />} />
+        {/* <Route path="/support" element={<Support />} /> */}
+        {/* <Route path="/support-chart/:id" element={<SupportChart />} /> */}
 
         {/* Reports & Analytics */}
         <Route path="/get-business-analytics" element={<GetBusniessDetails />} />
@@ -394,6 +400,12 @@ const App = () => {
         {/* Notifications & Meetings */}
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/zoom-meeting" element={<ZoomMetting />} />
+        <Route path="/Reset-Password" element={<ResetPassword />} />
+
+
+
+
+
 
         {/* Settings & Profile */}
         <Route path="/setting" element={<Setting />} />

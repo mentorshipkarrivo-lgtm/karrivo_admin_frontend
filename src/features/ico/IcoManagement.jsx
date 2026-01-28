@@ -1,47 +1,63 @@
+// SessionBookingManagement.jsx - Frontend Component
+
 import React, { useState, useEffect } from "react";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Pagination from "../../components/Pagination";
 import Skeleton from "react-loading-skeleton";
 import {
-  useGetRoundQuery,
-  useUpdateRoundMutation,
-  useGetExchangeQuery,
-} from "./icoApiSlice";
+  useGetSessionBookingsQuery,
+  useViewSessionBookingQuery,
+  useUpdateSessionBookingMutation,
+  useUpdateSessionStatusMutation,
+  useUpdatePaymentStatusMutation,
+  useDeleteSessionBookingMutation,
+} from "./icoApiSlice"
 import { toast } from "react-toastify";
-import axios from "axios";
 
-const IcoManagement = () => {
+const SessionBookingManagement = () => {
   const [currentEditData, setCurrentEditData] = useState(null);
   const [errors, setErrors] = useState({});
   const [refresh, setRefresh] = useState(false);
-  //pagination
+  
+  // State for pagination
   const [state, setState] = useState({
     currentPage: 1,
     perPage: 10,
     search: "",
-    selectedUserId: null,
+    selectedBookingId: null,
   });
 
   const queryParams = `limit=${state?.perPage || ""}&page=${
     state?.currentPage || ""
   }&search=${state?.search || ""}`;
 
-  const { data: getRound, isLoading, refetch } = useGetRoundQuery(queryParams);
+  const { 
+    data: getSessionBookings, 
+    isLoading, 
+    refetch 
+  } = useGetSessionBookingsQuery(queryParams);
 
-  const TableData = getRound?.data?.rounds || [];
-  const [updateRound] = useUpdateRoundMutation();
+  const {
+    data: viewBooking,
+    isLoading: isBookingLoading,
+  } = useViewSessionBookingQuery(state.selectedBookingId, {
+    skip: !state.selectedBookingId,
+  });
 
-  const { data: getExchange } = useGetExchangeQuery(queryParams);
+  const TableData = getSessionBookings?.data?.bookings || [];
+  
+  const [updateSessionBooking] = useUpdateSessionBookingMutation();
+  const [updateSessionStatus] = useUpdateSessionStatusMutation();
+  const [updatePaymentStatus] = useUpdatePaymentStatusMutation();
+  const [deleteSessionBooking] = useDeleteSessionBookingMutation();
 
-  const TableData1 = getExchange?.data || [];
-
-  // const [exchange] = useGetExchangeQuery();
-  // Handle PerChange
+  // Handle page change
   const handlePageChange = (e) => {
     setState({ ...state, currentPage: e });
   };
-  // Function for handling search with delay
+
+  // Handle search with delay
   let searchTimeout;
   const handleSearch = (e) => {
     clearTimeout(searchTimeout);
@@ -50,124 +66,198 @@ const IcoManagement = () => {
     }, 1000);
   };
 
-  //////////// Validation for update ICO Rounds
+  // Validation for update session booking
   const validate = () => {
     let formErrors = {};
 
-    // Round validation
-    if (!currentEditData.round) {
-      formErrors.round = "Round is required";
-    } else if (isNaN(currentEditData.round)) {
-      formErrors.round = "Round must be a number";
-    } else if (currentEditData.round < 0) {
-      formErrors.round = "Round cannot be less than 0";
+    // Topic validation
+    if (!currentEditData.topic || currentEditData.topic.trim() === "") {
+      formErrors.topic = "Topic is required";
+    }
+
+    // Session date validation
+    if (!currentEditData.sessionDate) {
+      formErrors.sessionDate = "Session date is required";
+    }
+
+    // Start time validation
+    if (!currentEditData.startTime || currentEditData.startTime.trim() === "") {
+      formErrors.startTime = "Start time is required";
+    }
+
+    // Duration validation
+    if (!currentEditData.durationMinutes) {
+      formErrors.durationMinutes = "Duration is required";
+    } else if (isNaN(currentEditData.durationMinutes)) {
+      formErrors.durationMinutes = "Duration must be a number";
+    } else if (currentEditData.durationMinutes < 15) {
+      formErrors.durationMinutes = "Duration cannot be less than 15 minutes";
     }
 
     // Price validation
-    if (!currentEditData.atPriceUsdt) {
-      formErrors.atPriceUsdt = "Price is required";
-    } else if (isNaN(currentEditData.atPriceUsdt)) {
-      formErrors.atPriceUsdt = "Price must be a number";
-    } else if (currentEditData.atPriceUsdt < 0) {
-      formErrors.atPriceUsdt = "Price cannot be less than 0";
-    }
-
-    //Inr validation
-    if (!currentEditData.atPriceInr) {
-      formErrors.atPriceInr = "Price is required";
-    } else if (isNaN(currentEditData.atPriceInr)) {
-      formErrors.atPriceUsdt = "Price must be a number";
-    } else if (currentEditData.atPriceInr < 0) {
-      formErrors.atPriceInr = "Price cannot be less than 0";
-    }
-
-    // Total Quantity validation
-    if (!currentEditData.totalQty) {
-      formErrors.totalQty = "Total Quantity is required";
-    } else if (isNaN(currentEditData.totalQty)) {
-      formErrors.totalQty = "Total Quantity must be a number";
-    } else if (currentEditData.totalQty < 0) {
-      formErrors.totalQty = "Total Quantity cannot be less than 0";
-    }
-
-    // Remaining Quantity validation
-    if (!currentEditData.remaingQty) {
-      formErrors.remaingQty = "Remaining Quantity is required";
-    } else if (isNaN(currentEditData.remaingQty)) {
-      formErrors.remaingQty = "Remaining Quantity must be a number";
-    } else if (currentEditData.remaingQty < 0) {
-      formErrors.remaingQty = "Remaining Quantity cannot be less than 0";
+    if (!currentEditData.price) {
+      formErrors.price = "Price is required";
+    } else if (isNaN(currentEditData.price)) {
+      formErrors.price = "Price must be a number";
+    } else if (currentEditData.price < 0) {
+      formErrors.price = "Price cannot be negative";
     }
 
     setErrors(formErrors);
     return Object.keys(formErrors).length === 0;
   };
 
+  // Open edit modal
   const openModal = (data) => {
-    setCurrentEditData(data);
+    setCurrentEditData({
+      ...data,
+      sessionDate: data.sessionDate ? new Date(data.sessionDate).toISOString().split('T')[0] : '',
+      _id: data._id
+    });
+    setState({ ...state, selectedBookingId: data._id });
     const modal = new window.bootstrap.Modal(
       document.getElementById("editModal")
     );
     modal.show();
   };
+
+  // Open view modal
+  const openViewModal = (data) => {
+    setState({ ...state, selectedBookingId: data._id });
+    const modal = new window.bootstrap.Modal(
+      document.getElementById("viewModal")
+    );
+    modal.show();
+  };
+
+  // Handle edit change
   const handleEditChange = (e) => {
-    console.log(e.target);
     const { name, value } = e.target;
     setCurrentEditData({ ...currentEditData, [name]: value });
   };
-  // handleEditChangeINR
-  const [inputValue, setInputValue] = useState("");
-  const handleKeyUp = async (event) => {
-    const fieldName = event.target.name;
-    try {
-      // let currency = await axios.get(`https://api.solarpath.io/v1/6f8b013c0a3f3aaa455229a9fd96793a/price2forex/usdinr`);
-      // console.log(currency.data.result.price);
-      if (fieldName == "atPriceUsdt") {
-        // const inrValue = event.target.value * currency.data.result.price;
-        const inrValue = event.target.value * TableData1;
-        setCurrentEditData({
-          ...currentEditData,
-          ["atPriceInr"]: inrValue?.toFixed(5),
-        });
-      } else {
-        // const usdValue = event.target.value / currency.data.result.price;
-        const usdValue = event.target.value / TableData1;
-        setCurrentEditData({
-          ...currentEditData,
-          ["atPriceUsdt"]: usdValue?.toFixed(5),
-        });
-      }
-    } catch (error) {
-      console.error("Error converting USD to INR:", error);
-    }
-  };
 
-  const handleUpdateRound = async () => {
+  // Handle update session booking
+  const handleUpdateBooking = async () => {
     if (!validate()) {
       return;
     }
 
     try {
-      await updateRound(currentEditData).unwrap();
-      // const modal = window.bootstrap.Modal.getInstance(
-      //   document.getElementById("editModal")
-      // );
-      // modal.hide();
-      toast.success("Round Updated Successfully", {
+      const { _id, ...updateData } = currentEditData;
+      await updateSessionBooking({
+        bookingId: _id,
+        ...updateData
+      }).unwrap();
+      
+      toast.success("Session booking updated successfully", {
         position: "top-center",
       });
       setRefresh(true);
       document.getElementById("closeModal").click();
     } catch (error) {
-      // console.log("error", error);
-      toast.error(`${error?.data?.message}`, {
+      toast.error(error?.data?.message || "Failed to update session booking", {
         position: "top-center",
       });
     }
   };
 
+  // Handle status change
+  const handleStatusChange = async (bookingId, newStatus) => {
+    try {
+      await updateSessionStatus({
+        bookingId,
+        status: newStatus
+      }).unwrap();
+      
+      toast.success(`Status updated to ${newStatus} successfully`, {
+        position: "top-center",
+      });
+      setRefresh(true);
+    } catch (error) {
+      toast.error(error?.data?.message || "Failed to update status", {
+        position: "top-center",
+      });
+    }
+  };
+
+  // Handle payment status change
+  const handlePaymentStatusChange = async (bookingId, newPaymentStatus) => {
+    try {
+      await updatePaymentStatus({
+        bookingId,
+        paymentStatus: newPaymentStatus
+      }).unwrap();
+      
+      toast.success(`Payment status updated to ${newPaymentStatus} successfully`, {
+        position: "top-center",
+      });
+      setRefresh(true);
+    } catch (error) {
+      toast.error(error?.data?.message || "Failed to update payment status", {
+        position: "top-center",
+      });
+    }
+  };
+
+  // Handle delete booking
+  const handleDeleteBooking = async (bookingId) => {
+    if (window.confirm("Are you sure you want to delete this booking?")) {
+      try {
+        await deleteSessionBooking(bookingId).unwrap();
+        
+        toast.success("Session booking deleted successfully", {
+          position: "top-center",
+        });
+        setRefresh(true);
+      } catch (error) {
+        toast.error(error?.data?.message || "Failed to delete booking", {
+          position: "top-center",
+        });
+      }
+    }
+  };
+
+  // Format date
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  // Format currency
+  const formatCurrency = (amount, currency) => {
+    if (!amount) return "N/A";
+    return `${currency === "INR" ? "₹" : "$"}${amount}`;
+  };
+
+  // Get status badge class
+  const getStatusBadge = (status) => {
+    const badges = {
+      pending: "badge bg-warning",
+      confirmed: "badge bg-info",
+      completed: "badge bg-success",
+      cancelled: "badge bg-danger",
+      rescheduled: "badge bg-secondary"
+    };
+    return badges[status] || "badge bg-secondary";
+  };
+
+  // Get payment status badge
+  const getPaymentBadge = (paymentStatus) => {
+    const badges = {
+      unpaid: "badge bg-warning",
+      paid: "badge bg-success",
+      refunded: "badge bg-info",
+      failed: "badge bg-danger"
+    };
+    return badges[paymentStatus] || "badge bg-secondary";
+  };
+
   useEffect(() => {
-    refetch();
     if (refresh) {
       refetch();
       setRefresh(false);
@@ -187,15 +277,15 @@ const IcoManagement = () => {
           <div className="row">
             <div className="col-12">
               <div className="my_total_team_data rounded-3 px-3 pb-0 py-4">
-                <h1 className="mb-3">ICO Management</h1>
+                <h1 className="mb-3">Session Booking Management</h1>
                 <div className="row justify-content-between">
-                  <div className="col-12 col-sm-6 col-md-2 col-xxl-1 ">
-                    <div className="pagination__box mb-4 ">
-                      <div className=" showing_data">
+                  <div className="col-12 col-sm-6 col-md-2 col-xxl-1">
+                    <div className="pagination__box mb-4">
+                      <div className="showing_data">
                         <select
                           className="form-select shadow-none"
-                          aria-label="Default select example"
-                          onClick={(e) =>
+                          aria-label="Items per page"
+                          onChange={(e) =>
                             setState({
                               ...state,
                               perPage: e.target.value,
@@ -229,7 +319,7 @@ const IcoManagement = () => {
                           autoComplete="off"
                           className="form-control border-0 shadow-none rounded-0 bg-transparent"
                           placeholder="Search"
-                          aria-label="Username"
+                          aria-label="Search"
                           aria-describedby="basic-addon1"
                           onChange={handleSearch}
                         />
@@ -237,108 +327,128 @@ const IcoManagement = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Table */}
                 <div className="table_data table-responsive">
                   <table className="table mb-0">
                     <thead>
                       <tr>
                         <th scope="col">S.No</th>
-                        <th scope="col">Round</th>
-                        <th scope="col">Price(USD)</th>
-                        <th scope="col">Price(INR)</th>
-                        <th scope="col">Total Tokens</th>
-                        <th scope="col">Sold Tokens</th>
-                        {/* <th scope="col">Bonus Tokens</th>
-                        <th scope="col">Issued Tokens</th>*/}
-                        <th scope="col">Remaining Tokens</th>
-
-                        <th scope="col">Action</th>
+                        <th scope="col">Mentee Name</th>
+                        <th scope="col">Topic</th>
+                        <th scope="col">Session Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Duration</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Payment</th>
+                        <th scope="col">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {isLoading ? (
                         <>
-                          {[...Array(10)].map((e, i) => (
+                          {[...Array(10)].map((_, i) => (
                             <tr key={i}>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>
-                              {/* <td>
-                                <Skeleton />
-                              </td>
-                              <td>
-                                <Skeleton />
-                              </td>*/}
-                              <td>
-                                <Skeleton />
-                              </td>
+                              {[...Array(10)].map((_, j) => (
+                                <td key={j}>
+                                  <Skeleton />
+                                </td>
+                              ))}
                             </tr>
                           ))}
                         </>
                       ) : TableData.length === 0 ? (
                         <tr>
-                          <td colSpan="6" className="text-center">
-                            No data found
+                          <td colSpan="10" className="text-center">
+                            No bookings found
                           </td>
                         </tr>
                       ) : (
-                        TableData.map((data, i) => (
-                          <tr key={i}>
+                        TableData.map((booking, i) => (
+                          <tr key={booking._id}>
                             <td>
                               {state?.currentPage * state?.perPage -
                                 (state?.perPage - 1) +
                                 i}
                               .
                             </td>
-                            <td>{data.round}</td>
-                            {/* <td>{data.atPriceUsdt?.toFixed(2)}</td> */}
-                            <td>{data.atPriceUsdt?.toFixed(5)}</td>
-                            <td>{data.atPriceInr?.toFixed(2)}</td>
-
-                            <td>{data?.totalQty}</td>
-                            <td>{data?.soldQty.toFixed(3)}</td>
-                            {/* <td>
-                              {(
-                                (Number(data.soldQty) || 0) -
-                                (Number(data.jaimaxCoins) || 0)
-                              ).toFixed(3)}
-                            </td> */}
-                            {/* <td>{data.jaimaxCoins?.toFixed(3)}</td>
+                            <td>{booking.menteeName}</td>
+                            <td>{booking.topic}</td>
+                            <td>{formatDate(booking.sessionDate)}</td>
+                            <td>{booking.startTime}</td>
+                            <td>{booking.durationMinutes} min</td>
+                            <td>{formatCurrency(booking.price, booking.currency)}</td>
                             <td>
-                              {(
-                                (Number(data.jaimaxCoins) || 0) +
-                                ((Number(data.soldQty) || 0) -
-                                  (Number(data.jaimaxCoins) || 0))
-                              ).toFixed(3)}
-                            </td>*/}
-                            <td>{data.remaingQty?.toFixed(3)}</td>
-                            <td>
-                              <span
-                                style={{ cursor: "pointer" }}
-                                data-bs-toggle="modal"
-                                data-bs-target="#editModal"
-                                onClick={() => openModal(data)}
+                              <select
+                                className={getStatusBadge(booking.status)}
+                                value={booking.status}
+                                onChange={(e) =>
+                                  handleStatusChange(booking._id, e.target.value)
+                                }
+                                style={{ cursor: "pointer", border: "none" }}
                               >
-                                <img
-                                  src="/images/icons/edit.svg"
-                                  alt="icon"
-                                  title="Edit Round"
-                                />
-                              </span>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                                <option value="rescheduled">Rescheduled</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select
+                                className={getPaymentBadge(booking.paymentStatus)}
+                                value={booking.paymentStatus}
+                                onChange={(e) =>
+                                  handlePaymentStatusChange(booking._id, e.target.value)
+                                }
+                                style={{ cursor: "pointer", border: "none" }}
+                              >
+                                <option value="unpaid">Unpaid</option>
+                                <option value="paid">Paid</option>
+                                <option value="refunded">Refunded</option>
+                                <option value="failed">Failed</option>
+                              </select>
+                            </td>
+                            <td>
+                              <div className="d-flex gap-2">
+                                <span
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => openViewModal(booking)}
+                                  title="View Details"
+                                >
+                                  <Icon
+                                    icon="mdi:eye"
+                                    width="20"
+                                    height="20"
+                                    style={{ color: "#17a2b8" }}
+                                  />
+                                </span>
+                                <span
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => openModal(booking)}
+                                  title="Edit Booking"
+                                >
+                                  <Icon
+                                    icon="mdi:pencil"
+                                    width="20"
+                                    height="20"
+                                    style={{ color: "#ffc107" }}
+                                  />
+                                </span>
+                                <span
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => handleDeleteBooking(booking._id)}
+                                  title="Delete Booking"
+                                >
+                                  <Icon
+                                    icon="mdi:delete"
+                                    width="20"
+                                    height="20"
+                                    style={{ color: "#dc3545" }}
+                                  />
+                                </span>
+                              </div>
                             </td>
                           </tr>
                         ))
@@ -347,12 +457,14 @@ const IcoManagement = () => {
                   </table>
                 </div>
               </div>
+
+              {/* Pagination */}
               {TableData?.length > 0 && (
                 <Pagination
                   currentPage={state?.currentPage}
                   totalPages={
                     Math.ceil(
-                      getRound?.data?.pagination?.total / state?.perPage
+                      getSessionBookings?.data?.pagination?.total / state?.perPage
                     ) || 1
                   }
                   onPageChange={handlePageChange}
@@ -363,6 +475,206 @@ const IcoManagement = () => {
         </div>
       </section>
 
+      {/* View Modal */}
+      <div
+        className="modal fade common__modal"
+        id="viewModal"
+        tabIndex="-1"
+        aria-labelledby="viewModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered modal-lg">
+          <div className="modal-content">
+            <div className="modal-header border-0 pb-0">
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body pt-0 px-4">
+              <h1 className="modal-title mb-4" id="viewModalLabel">
+                Session Booking Details
+              </h1>
+
+              {isBookingLoading ? (
+                <Skeleton count={10} />
+              ) : viewBooking?.data ? (
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Mentee Name</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.menteeName}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Email</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.email}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Phone</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.phone}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Topic</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.topic}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-12 mb-3">
+                    <div className="form__box">
+                      <label>Description</label>
+                      <textarea
+                        className="form-control shadow-none"
+                        value={viewBooking.data.description || "No description"}
+                        readOnly
+                        rows="3"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Session Date</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={formatDate(viewBooking.data.sessionDate)}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Time</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.startTime}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Duration</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={`${viewBooking.data.durationMinutes} minutes`}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Session Type</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.sessionType}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Price</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={formatCurrency(viewBooking.data.price, viewBooking.data.currency)}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Payment Method</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.paymentMethod}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Status</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.status}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Payment Status</label>
+                      <input
+                        type="text"
+                        className="form-control shadow-none"
+                        value={viewBooking.data.paymentStatus}
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  {viewBooking.data.meetingLink && (
+                    <div className="col-md-12 mb-3">
+                      <div className="form__box">
+                        <label>Meeting Link</label>
+                        <input
+                          type="text"
+                          className="form-control shadow-none"
+                          value={viewBooking.data.meetingLink}
+                          readOnly
+                        />
+                      </div>
+                    </div>
+                  )}
+                  <div className="text-center my-4">
+                    <button
+                      type="button"
+                      className="btn btn-secondary px-3"
+                      data-bs-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Edit Modal */}
       <div
         className="modal fade common__modal"
         id="editModal"
@@ -370,7 +682,7 @@ const IcoManagement = () => {
         aria-labelledby="editModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header border-0 pb-0">
               <button
@@ -383,99 +695,124 @@ const IcoManagement = () => {
             </div>
             <div className="modal-body pt-0 px-4">
               <h1 className="modal-title mb-4" id="editModalLabel">
-                Edit Round
+                Edit Session Booking
               </h1>
 
               {currentEditData && (
                 <form className="row">
                   <div className="col-md-6 mb-3">
                     <div className="form__box">
-                      <label htmlFor="">Round</label>
+                      <label>Topic</label>
                       <input
                         type="text"
                         autoComplete="off"
                         className="form-control shadow-none"
-                        name="round"
-                        value={currentEditData.round}
-                        disabled="true"
+                        name="topic"
+                        value={currentEditData.topic}
                         onChange={handleEditChange}
                       />
                     </div>
-                    {errors.round && (
-                      <div className="error">{errors.round}</div>
+                    {errors.topic && (
+                      <div className="error_cls">{errors.topic}</div>
                     )}
                   </div>
 
                   <div className="col-md-6 mb-3">
                     <div className="form__box">
-                      <label htmlFor="">USD Price</label>
+                      <label>Session Date</label>
                       <input
-                        type="text"
+                        type="date"
                         autoComplete="off"
                         className="form-control shadow-none"
-                        name="atPriceUsdt"
-                        value={currentEditData.atPriceUsdt}
-                        onKeyUp={handleKeyUp}
+                        name="sessionDate"
+                        value={currentEditData.sessionDate}
                         onChange={handleEditChange}
                       />
                     </div>
-                    {errors.atPriceUsdt && (
-                      <div className="error">{errors.atPriceUsdt}</div>
+                    {errors.sessionDate && (
+                      <div className="error_cls">{errors.sessionDate}</div>
                     )}
                   </div>
 
                   <div className="col-md-6 mb-3">
                     <div className="form__box">
-                      <label htmlFor="">INR Price</label>
+                      <label>Start Time</label>
                       <input
                         type="text"
                         autoComplete="off"
                         className="form-control shadow-none"
-                        name="atPriceInr"
-                        value={currentEditData.atPriceInr}
-                        onKeyUp={handleKeyUp}
+                        name="startTime"
+                        value={currentEditData.startTime}
                         onChange={handleEditChange}
+                        placeholder="e.g., 09:00 - 10:00"
                       />
                     </div>
-                    {errors.atPriceInr && (
-                      <div className="error">{errors.atPriceInr}</div>
+                    {errors.startTime && (
+                      <div className="error_cls">{errors.startTime}</div>
                     )}
                   </div>
 
                   <div className="col-md-6 mb-3">
                     <div className="form__box">
-                      <label htmlFor=""> Total Quantity</label>
+                      <label>Duration (minutes)</label>
                       <input
-                        type="text"
+                        type="number"
                         autoComplete="off"
                         className="form-control shadow-none"
-                        name="totalQty"
-                        disabled="true"
-                        value={currentEditData.totalQty}
+                        name="durationMinutes"
+                        value={currentEditData.durationMinutes}
                         onChange={handleEditChange}
                       />
                     </div>
-                    {errors.totalQty && (
-                      <div className="error">{errors.totalQty}</div>
+                    {errors.durationMinutes && (
+                      <div className="error_cls">{errors.durationMinutes}</div>
                     )}
                   </div>
 
                   <div className="col-md-6 mb-3">
                     <div className="form__box">
-                      <label htmlFor="">Remaining Quantity</label>
+                      <label>Price</label>
                       <input
-                        type="text"
+                        type="number"
                         autoComplete="off"
                         className="form-control shadow-none"
-                        name="remaingQty"
-                        disabled="true"
-                        value={currentEditData.remaingQty}
+                        name="price"
+                        value={currentEditData.price}
                         onChange={handleEditChange}
                       />
                     </div>
-                    {errors.remaingQty && (
-                      <div className="error">{errors.remaingQty}</div>
+                    {errors.price && (
+                      <div className="error_cls">{errors.price}</div>
                     )}
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <div className="form__box">
+                      <label>Session Type</label>
+                      <select
+                        className="form-select shadow-none"
+                        name="sessionType"
+                        value={currentEditData.sessionType}
+                        onChange={handleEditChange}
+                      >
+                        <option value="One-on-One">One-on-One</option>
+                        <option value="Group">Group</option>
+                        <option value="Workshop">Workshop</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="col-md-12 mb-3">
+                    <div className="form__box">
+                      <label>Description</label>
+                      <textarea
+                        className="form-control shadow-none"
+                        name="description"
+                        value={currentEditData.description}
+                        onChange={handleEditChange}
+                        rows="3"
+                      />
+                    </div>
                   </div>
 
                   <div className="d-flex gap-3 justify-content-center flex-wrap my-4">
@@ -489,7 +826,7 @@ const IcoManagement = () => {
                     <button
                       type="button"
                       className="btn_orange"
-                      onClick={handleUpdateRound}
+                      onClick={handleUpdateBooking}
                     >
                       Save changes
                     </button>
@@ -504,4 +841,4 @@ const IcoManagement = () => {
   );
 };
 
-export default IcoManagement;
+export default SessionBookingManagement;

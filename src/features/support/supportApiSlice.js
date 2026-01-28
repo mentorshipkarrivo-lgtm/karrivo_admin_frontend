@@ -1,65 +1,96 @@
 import { apiSlice } from "../../services/api/jaiMaxApi";
 
 export const supportApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
-    SupportData: builder.query({
-      query: (queryParams) => ({
-        url: `/support/get_tickets_list?${queryParams}`,
-        method: "GET",
+    endpoints: (builder) => ({
 
-      }),
-      providesTags: ["getStatus"],
+        // Create a new support ticket
+        createSupportTicket: builder.mutation({
+            query: (ticketData) => ({
+                url: "mentee/support/create-ticket",
+                method: "POST",
+                body: {
+                    username: ticketData.username,
+                    subject: ticketData.subject,
+                    category: ticketData.category,
+                    priority: ticketData.priority,
+                    description: ticketData.description,
+                    status: "pending",
+                },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                },
+            }),
+            invalidatesTags: ["SupportTickets"],
+        }),
+
+        // Get all support tickets for a specific user
+        getSupportTickets: builder.query({
+            query: (userId) => ({
+                url: `mentee/support/get-tickets/${userId}`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }),
+            providesTags: ["SupportTickets"],
+        }),
+
+        // Get a single ticket by ID
+        getSupportTicketById: builder.query({
+            query: (ticketId) => ({
+                url: `mentee/support/get-ticket/${ticketId}`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }),
+            providesTags: (result, error, ticketId) => [
+                { type: "SupportTickets", id: ticketId },
+            ],
+        }),
+
+        // Get all support tickets (Admin)
+        getAllSupportTickets: builder.query({
+            query: (queryParams = "") => ({
+                url: `mentee/support/get-all-tickets${queryParams ? `?${queryParams}` : ''}`,
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            }),
+            providesTags: ["SupportTickets"],
+        }),
+
+        // Update a support ticket (Admin)
+        updateSupportTicket: builder.mutation({
+            query: ({ ticketId, updates }) => ({
+                url: `mentee/support/update-ticket/${ticketId}`,
+                method: "PATCH",
+                body: updates,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Content-Type": "application/json",
+                },
+            }),
+            invalidatesTags: ["SupportTickets"],
+        }),
 
     }),
-    CategoryGet: builder.query({
-      query: (queryParams) => ({
-        url: `/support/category_get`,
-        method: "GET",
-      }),
-    }),
-    createTicket: builder.mutation({
-      query: (credentials) => ({
-        url: "/support/create_ticket",
-        method: "POST",
-        body: credentials,
-      }),
-    }),
-    ChatGet: builder.query({
-      query: (queryParams) => ({
-        url: `/support/comment_get/${queryParams}`,
-        method: "GET",
-      }),
-      providesTags: ["getComment"],
-    }),
-    createComment: builder.mutation({
-      query: (credentials) => ({
-        url: "/support/comment_create",
-        method: "POST",
-        body: credentials,
-      }),
-      invalidatesTags: ["getComment"],
-    }),
-    editStatus: builder.mutation({
-      query: (queryParams) => {
-        // console.log("editStatus queryParams", queryParams); // Log the queryParams
-        return {
-          url: `/support/update_ticket/${queryParams?.id}`,
-          method: "PUT",
-          body: { status: queryParams?.status },
-        };
-        
-      },
-      invalidatesTags: ["getStatus"],
-    }),
-    
-  }),
 });
 
 export const {
-  useSupportDataQuery,
-  useCategoryGetQuery,
-  useCreateTicketMutation,
-  useChatGetQuery,
-  useCreateCommentMutation,
-  useEditStatusMutation,
+    useCreateSupportTicketMutation,
+    useGetSupportTicketsQuery,
+    useGetSupportTicketByIdQuery,
+    useGetAllSupportTicketsQuery,
+    useUpdateSupportTicketMutation,
 } = supportApiSlice;
+
+
+
+
+
+
+
+
