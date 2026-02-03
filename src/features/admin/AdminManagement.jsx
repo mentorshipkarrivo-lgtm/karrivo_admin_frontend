@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 const SessionBookingManagement = () => {
   const [currentEditData, setCurrentEditData] = useState(null);
   const [errors, setErrors] = useState({});
-  
+
   // State for pagination
   const [state, setState] = useState({
     currentPage: 1,
@@ -30,15 +30,15 @@ const SessionBookingManagement = () => {
   const queryParams = `limit=${state.perPage}&page=${state.currentPage}&search=${state.search}`;
 
   // Fetch session bookings
-  const { 
-    data: sessionBookingsResponse, 
-    isLoading, 
+  const {
+    data: sessionBookingsResponse,
+    isLoading,
     isError,
     error,
-    refetch 
+    refetch
   } = useGetSessionBookingsQuery(queryParams);
 
-    console.log("Session Bookings Response:", sessionBookingsResponse);
+  console.log("Session Bookings Response:", sessionBookingsResponse);
   // Fetch single booking for view modal
   const {
     data: viewBookingResponse,
@@ -140,12 +140,12 @@ const SessionBookingManagement = () => {
 
     try {
       const { _id, __v, createdAt, userId, mentorId, menteeId, zoomMeeting, ...updateData } = currentEditData;
-      
+
       await updateSessionBooking({
         bookingId: _id,
         ...updateData
       }).unwrap();
-      
+
       toast.success("Session booking updated successfully");
       document.getElementById("closeEditModal").click();
       refetch();
@@ -236,8 +236,10 @@ const SessionBookingManagement = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
-              <div className="my_total_team_data rounded-3 px-3 pb-0 py-4">
-                <h1 className="mb-3">Session Booking Management</h1>
+              <div className="rounded-3 px-3 pb-0 py-4">
+                <h1 className="mb-3" style={{ color: '#eb660f' }}>
+                  All  Mentees
+                </h1>
 
                 <div className="row justify-content-between mb-3">
                   <div className="col-12 col-sm-6 col-md-2">

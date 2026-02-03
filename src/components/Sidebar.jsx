@@ -53,36 +53,12 @@ const Sidebar = () => {
     },
 
     {
-      mainButton: "Transactions ",
-      images: "ico.png",
-      link: "/ico-management",
-      dropDown: "side_drop",
-    },
-    {
       mainButton: "MentorSupport",
       images: "kyc.png",
       link: "/mentor-Support",
       dropDown: "side_drop",
     },
 
-    {
-      mainButton: "Analytics",
-      images: "walleticon.png",
-      link: "/wallet-management",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "All Transactions",
-      images: "new-wallet.png",
-      link: "/all-transactions",
-      dropDown: "side_drop",
-    },
-    {
-      mainButton: "Delete Account",
-      images: "delete.png",
-      link: "/get-deleted-accounts",
-      dropDown: "side_drop",
-    },
     {
       mainButton: "Logout",
       images: "logout.png",
