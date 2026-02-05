@@ -1,0 +1,45 @@
+type User @table {
+  displayName: String!
+  email: String!
+  userType: String!
+  bio: String
+  photoUrl: String
+  skills: [String]
+  industry: [String]
+  availability: String
+}
+
+type MentorshipProgram @table {
+  name: String!
+  description: String!
+  createdAt: Timestamp!
+  startDate: Date
+  endDate: Date
+  programGoals: [String]
+}
+
+type MentorshipRequest @table {
+  mentee: User!
+  mentor: User!
+  status: String!
+  createdAt: Timestamp!
+  message: String
+}
+
+type Session @table {
+  mentor: User!
+  mentee: User!
+  startTime: Timestamp!
+  endTime: Timestamp!
+  status: String!
+  notes: String
+  meetingLink: String
+}
+
+type ProgramEnrollment @table(key: ["user", "mentorshipProgram"]) {
+  user: User!
+  mentorshipProgram: MentorshipProgram!
+  role: String!
+  createdAt: Timestamp!
+  progress: String
+}
