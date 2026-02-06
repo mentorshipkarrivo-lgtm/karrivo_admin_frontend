@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "karrivo-f64dd"
-  }
+  },
+  "targets": {
+    "karrivo-f64dd": {
+      "hosting": {
+        "admin": [
+          "karrivoadmin"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
