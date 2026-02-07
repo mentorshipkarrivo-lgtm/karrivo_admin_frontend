@@ -39,18 +39,20 @@ const Sidebar = () => {
       link: "/mentor-management",
       dropDown: "side_drop",
     },
+
     {
       mainButton: "Mentees",
       images: "admin.png",
-      link: "/total-admin",
+      link: "/allmentees",
       dropDown: "side_drop",
     },
     {
-      mainButton: "Sessions & Bookings",
-      images: "referral.png",
-      link: "/referral",
+      mainButton: "All Bookings",
+      images: "admin.png",
+      link: "/allbookings",
       dropDown: "side_drop",
     },
+
 
     {
       mainButton: "MentorSupport",

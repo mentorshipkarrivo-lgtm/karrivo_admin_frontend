@@ -233,7 +233,7 @@ const UserManagement = () => {
               {/* User Table */}
               <div className="col-12">
                 <div className="my_total_team_data rounded-3 px-3 py-4">
-                  <h1 className="mb-3">Mentor Applications</h1>
+                  <h1 className="mb-3">Mentor Applications Management</h1>
                   <div className="row justify-content-between">
                     {/* Items per page selector */}
                     <div className="col-12 col-sm-6 col-md-2 col-xxl-1">
