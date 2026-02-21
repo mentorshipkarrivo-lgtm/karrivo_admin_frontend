@@ -53,14 +53,19 @@ const Sidebar = () => {
       dropDown: "side_drop",
     },
 
-
     {
-      mainButton: "MentorSupport",
+      mainButton: "Mentor Queries",
       images: "kyc.png",
-      link: "/mentor-Support",
+      link: "/mentor-support",
       dropDown: "side_drop",
     },
-
+    {
+      mainButton: "Mentee Queries",
+      images: "kyc.png",
+      link: "/mentee-support",
+      dropDown: "side_drop",
+    }
+,
     {
       mainButton: "Logout",
       images: "logout.png",

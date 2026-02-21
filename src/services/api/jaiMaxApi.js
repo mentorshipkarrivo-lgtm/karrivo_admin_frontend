@@ -1,22 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { useNavigate } from "react-router-dom";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
-  // credentials: "include",
 
-  prepareHeaders: (headers, { getState }) => {
-    headers.set("Access-Control-Allow-Origin", "*");
-    headers.set(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT,PATCH, DELETE, OPTIONS"
-    );
 
+  prepareHeaders: (headers) => {
+    headers.set("Content-Type", "application/json");
     const token = localStorage.getItem("token");
 
-    // If we have a token set in state, let's assume that we should be passing it.
     if (token) {
-      headers.set("authorization", `Bearer ${token}`);
+      headers.set("Authorization", `Bearer ${token}`);
     }
     return headers;
   },
@@ -28,34 +21,34 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReAuth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  // If a 408 error occurs, try to refresh the token
-  if (result?.error?.data?.status_code === 408) {
+  // Token refresh for 408 errors
+  if (result?.error?.status === 408 || result?.error?.data?.status_code === 408) {
+    console.log("Token expired, attempting refresh...");
+
     const refreshResult = await baseQuery(
       { url: "/Auth/refreshToken", method: "GET" },
       api,
       extraOptions
     );
 
-    if (refreshResult?.data) {
-      // Store the new token
-      localStorage.setItem("token", refreshResult.data?.data.token);
-
-      // Retry the original query with the new token
-      result = await baseQuery(args, api, extraOptions);
+    const newToken = refreshResult?.data?.data?.token;
+    if (newToken) {
+      localStorage.setItem("token", newToken);
+      console.log("Token refreshed successfully");
+      result = await baseQuery(args, api, extraOptions); // Retry original query
     } else {
-      // Token refresh failed
+      console.error("Token refresh failed, logging out");
+      localStorage.clear();
+      window.location.href = "/login";
       return refreshResult;
     }
   }
 
-  // If a 401 error occurs, logout or handle it (custom behavior)
-  if (result?.error?.data?.status_code === 401) {
-    const navigate = useNavigate();
-    navigate("/login");
-    localStorage.clear();
-    // Handle logout or other custom logic
+  // Logout on 401 unauthorized
+  if (result?.error?.status === 401 || result?.error?.data?.status_code === 401) {
     console.error("Unauthorized: Logging out");
-    // Optionally dispatch an action or navigate the user
+    localStorage.clear();
+    window.location.href = "/login";
   }
 
   return result;
@@ -64,16 +57,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: [
-    "getComment",
-    "getStatus",
-    "getKyc",
-    "getSettings",
-    "getTdetails",
-    "ShareHolders",
-    "updateDetails",
-    "ExcludedUsers",
-  ],
+  tagTypes: ["getComment", "updateDetails", "getTicket", "shareholder"],
   endpoints: (builder) => ({}),
 });
 

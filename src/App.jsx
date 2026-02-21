@@ -35,6 +35,7 @@ import ResetPassword from "./features/resetpage/ResetPassword";
 import AllMentorSupportTickets from "./features/mentorSupport/mentorsupport";
 import SessionBookingManagement from "./features/ico/IcoManagement";
 import UserProfile from "./features/allmentees/allmentess";
+import AllMenteeSupportTickets from "./features/MenteeSupport/MenteeSupport";
 const App = () => {
   return (
     <>
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/get-deleted-accounts" element={<DeletedUsersTable />} />
         <Route path="/exclude-users" element={<ExludeUsers />} />
         <Route path="/mentor-Support" element={<AllMentorSupportTickets />} />
+        <Route path="/mentee-Support" element={<AllMenteeSupportTickets />} />
 
 
 
